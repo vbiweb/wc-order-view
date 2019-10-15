@@ -1,0 +1,255 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.order-view-admin .wp-list-table tbody td, .order-view-admin .wp-list-table tbody th {
+    padding: 1em;
+    line-height: 26px;
+}
+
+.order-view-admin .wp-list-table thead th, .order-view-admin .wp-list-table tfoot th {
+    padding: 0.75em 1em;
+    line-height: 1.4em;
+}
+
+.order-view-admin .wp-list-table thead th.sortable a, .order-view-admin .wp-list-table tfoot th.sortable a{
+	padding:0;
+}
+
+.order-view-admin .wp-list-table td, .order-view-admin .wp-list-table th {
+    vertical-align: middle;
+}
+
+.order-view-admin .wp-list-table .check-column {
+    width: 1px;
+    white-space: nowrap;
+    padding: 1em 1em 1em 1em !important;
+    vertical-align: middle;
+}
+
+.order-view-admin .wp-list-table .check-column input {
+    vertical-align: text-top;
+    margin: 1px 0;
+}
+
+.order-view-admin .wp-list-table .order-preview::before {
+ 	font-family: WooCommerce;
+ 	font-weight: 400;
+ 	font-variant: normal;
+ 	text-transform: none;
+ 	margin: 0;
+ 	text-indent: 0;
+ 	position: absolute;
+ 	left: 0;
+ 	width: 100%;
+ 	height: 100%;
+ 	text-align: center;
+ 	content: "";
+ 	line-height: 16px;
+ 	font-size: 14px;
+ 	vertical-align: middle;
+ 	top: 4px;
+}
+
+.order-view-admin .wp-list-table .order-preview {
+	float: right;
+	width: 16px;
+	padding: 20px 4px 4px 4px;
+	height: 0;
+	overflow: hidden;
+	position: relative;
+	border: 2px solid
+	transparent;
+	border-radius: 4px;
+}
+
+.order-view-admin .wp-list-table .order-preview:hover {
+    border: 2px solid #00a0d2;
+}
+
+.order-view-admin .order-status {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    line-height: 2.5em;
+    border-radius: 4px;
+    border-bottom: 1px solid 
+    rgba(0,0,0,.05);
+    margin: -.25em 0;
+    cursor: inherit !important;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.order-view-admin .order-status > span {
+    margin: 0 1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-view-admin .order-status.status-completed {
+    background: #c8d7e1;
+	color: #2e4453;
+}
+
+.order-view-admin .order-status.status-on-hold {
+    background: #f8dda7;
+	color: #94660c;
+}
+
+.order-view-admin .wp-list-table .column-order_id {
+    width: 20ch;
+}
+
+.order-view-admin .wp-list-table .column-name {
+    width: 10ch;
+}
+
+.order-view-admin .wp-list-table .column-status {
+    width: 14ch;
+}
+
+.order-view-admin .wp-list-table .column-date {
+    width: 10ch;
+}
+
+.order-view-admin .wp-list-table .column-billing_address {
+    width: 20ch;
+    line-height: 1.5em;
+}
+
+.order-view-admin .wp-list-table .column-shipping_address {
+    width: 20ch;
+    line-height: 1.5em;
+}
+
+.order-view-admin .wp-list-table .column-total {
+    width: 8ch;
+    text-align: right;
+}
+
+.order-view-admin .wp-list-table .column-total a span {
+	float:right;
+}
+
+.order-view-admin .wp-list-table .tooltip {
+	position: relative;
+	display: inline-block;
+	padding: 0px 0px 0px 5px;
+}
+
+.order-view-admin .wp-list-table .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #333333;
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	padding: 3px 0;
+	position: absolute;
+	z-index: 1;
+	top: -3px;
+	right: 110%;
+	font-size: 10px;
+}
+
+.order-view-admin .wp-list-table .tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	margin-top: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent transparent black;
+}
+.order-view-admin .wp-list-table .tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+
+.order-view-admin .wp-list-table .column-billing_address .description,
+.order-view-admin .wp-list-table .column-shipping_address .description {
+    display: block;
+    color: #999;
+}
+
+.order-view-admin .tablenav input,
+.order-view-admin .tablenav select {
+    line-height: 1;
+    height: 32px;
+}
+
+.order-view-admin .tablenav .select2-container {
+    float: left;
+    width: 240px !important;
+    font-size: 14px;
+    vertical-align: middle;
+    margin: 1px 6px 4px 1px;
+}
+
+.order-view-admin .select2-container .select2-selection--single {
+    height: 32px;
+}
+
+.order-view-admin .select2-container .select2-selection--single .select2-selection__arrow {
+    right: 3px;
+    height: 30px;
+}
+
+#wpfooter {
+	position: relative;
+}
+
+
+/**
+ * Order View Admin settings page CSS
+ *
+ */
+
+
+.order-view-admin-settings .switch-field {
+	display: flex;
+	margin-bottom: 36px;
+	overflow: hidden;
+}
+
+.order-view-admin-settings .switch-field input {
+	position: absolute !important;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.order-view-admin-settings .switch-field label {
+	background-color: #e4e4e4;
+	color: rgba(0, 0, 0, 0.6);
+	font-size: 14px;
+	line-height: 1;
+	text-align: center;
+	padding: 8px 16px;
+	margin-right: -1px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+	transition: all 0.1s ease-in-out;
+}
+
+.order-view-admin-settings .switch-field label:hover {
+	cursor: pointer;
+}
+
+.order-view-admin-settings .switch-field input:checked + label {
+	background-color: #0085ba;
+	color:#ffffff;
+	box-shadow: none;
+}
+
+.order-view-admin-settings .switch-field label:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.order-view-admin-settings .switch-field label:last-of-type {
+	border-radius: 0 4px 4px 0;
+}
