@@ -167,7 +167,19 @@ class Wc_Order_View_Admin {
 	 */
 	public function wc_order_view_page() {
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/wc-order-view-admin-display.php';
+		if( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == "view" ) {
+
+			$order = new WC_Order( $_GET[ 'order_id' ] );
+
+			$user = $order->get_user();
+
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/wc-order-view-order-details-display.php';
+		
+		} else {
+
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/wc-order-view-admin-display.php';
+
+		}
 		
 	}
 
@@ -178,7 +190,6 @@ class Wc_Order_View_Admin {
 	 */
 	public function register_wc_order_view_settings() {
 
-		//general tab settings
 		add_settings_section("wc_order_view_general_settings", "General Settings", null, "wc-order-view-settings");
 
 		add_settings_field("wcov_display_mode", "Display Mode", array( $this, "wcov_display_mode_callback" ), "wc-order-view-settings", "wc_order_view_general_settings");
@@ -186,10 +197,20 @@ class Wc_Order_View_Admin {
 		add_settings_field("wcov_display_shipping_info", "Shipping Details", array( $this, "wcov_display_shipping_info_callback" ), "wc-order-view-settings", "wc_order_view_general_settings");
 		add_settings_field("wcov_display_order_notes", "Order Notes", array( $this, "wcov_display_order_notes_callback" ), "wc-order-view-settings", "wc_order_view_general_settings");
 
-		register_setting( 'wc_order_view_general_settings' , 'wcov_display_mode');
-		register_setting( 'wc_order_view_general_settings' , 'wcov_display_billing_info');
-		register_setting( 'wc_order_view_general_settings' , 'wcov_display_shipping_info');
-		register_setting( 'wc_order_view_general_settings' , 'wcov_display_order_notes');
+		register_setting( 'wc_order_view_settings' , 'wcov_display_mode');
+		register_setting( 'wc_order_view_settings' , 'wcov_display_billing_info');
+		register_setting( 'wc_order_view_settings' , 'wcov_display_shipping_info');
+		register_setting( 'wc_order_view_settings' , 'wcov_display_order_notes');
+
+		add_settings_section("wc_order_view_third_party_plugins_settings", "Third Party Plugins Support", null, "wc-order-view-settings");
+	
+		add_settings_field("wcov_pdf_invoices", "PDF Invoices", array( $this, "wcov_pdf_invoices_callback" ), "wc-order-view-settings", "wc_order_view_third_party_plugins_settings");
+		add_settings_field("wcov_subscriptions", "Woocommerce Subscriptions", array( $this, "wcov_subscriptions_callback" ), "wc-order-view-settings", "wc_order_view_third_party_plugins_settings");
+		add_settings_field("wcov_api_manager", "Woocommerce API Manager", array( $this, "wcov_api_manager_callback" ), "wc-order-view-settings", "wc_order_view_third_party_plugins_settings");
+
+		register_setting( 'wc_order_view_settings' , 'wcov_pdf_invoices');
+		register_setting( 'wc_order_view_settings' , 'wcov_subscriptions');
+		register_setting( 'wc_order_view_settings' , 'wcov_api_manager');
 
 	}
 
@@ -291,6 +312,102 @@ class Wc_Order_View_Admin {
 			</div>
 		<?php
 
+	}
+
+	/**
+	 * Callback to enable "PDF Invoices" setting.
+	 *
+	 * @since    1.0.0
+	 */
+	public function wcov_pdf_invoices_callback() {
+
+		$active_plugins = get_option( 'active_plugins' );
+
+		if( ! in_array( "woocommerce-pdf-invoice/woocommerce-pdf-invoice.php" , $active_plugins ) ) {
+			?>
+				This plugin is currently inactive / not installed in your site. To know more about this plugin please visit <a href="https://woocommerce.com/products/pdf-invoices/">PDF Invoices</a>
+			<?php
+		} else {
+			$current_option = get_option( 'wcov_pdf_invoices' );
+
+			if( $current_option == "" ) {
+				update_option( 'wcov_pdf_invoices', 'disabled' );
+				$current_option = get_option( 'wcov_pdf_invoices' );			
+			} 
+
+			?>
+				<div class="switch-field">
+					<input type="radio" id="wcov_pdf_invoices_enabled" name="wcov_pdf_invoices" value="enabled" <?php echo ( $current_option == "enabled" ) ? "checked" : ""; ?> />
+					<label for="wcov_pdf_invoices_enabled">Enabled</label>
+					<input type="radio" id="wcov_pdf_invoices_disabled" name="wcov_pdf_invoices" value="disabled" <?php echo ( $current_option == "disabled" ) ? "checked" : ""; ?> />
+					<label for="wcov_pdf_invoices_disabled">Disabled</label>
+				</div>
+			<?php
+		}
+	}
+
+	/**
+	 * Callback to enable "Subscriptions" setting.
+	 *
+	 * @since    1.0.0
+	 */
+	public function wcov_subscriptions_callback() {
+
+		$active_plugins = get_option( 'active_plugins' );
+
+		if( ! in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) {
+			?>
+				This plugin is currently inactive / not installed in your site. To know more about this plugin please visit <a href="https://woocommerce.com/products/woocommerce-subscriptions/">WooCommerce Subscriptions</a>
+			<?php
+		} else {
+			$current_option = get_option( 'wcov_subscriptions' );
+
+			if( $current_option == "" ) {
+				update_option( 'wcov_subscriptions', 'disabled' );
+				$current_option = get_option( 'wcov_subscriptions' );			
+			} 
+
+			?>
+				<div class="switch-field">
+					<input type="radio" id="wcov_subscriptions_enabled" name="wcov_subscriptions" value="enabled" <?php echo ( $current_option == "enabled" ) ? "checked" : ""; ?> />
+					<label for="wcov_subscriptions_enabled">Enabled</label>
+					<input type="radio" id="wcov_subscriptions_disabled" name="wcov_subscriptions" value="disabled" <?php echo ( $current_option == "disabled" ) ? "checked" : ""; ?> />
+					<label for="wcov_subscriptions_disabled">Disabled</label>
+				</div>
+			<?php
+		}
+	}
+
+	/**
+	 * Callback to enable "API Manager" setting.
+	 *
+	 * @since    1.0.0
+	 */
+	public function wcov_api_manager_callback() {
+
+		$active_plugins = get_option( 'active_plugins' );
+
+		if( ! in_array( "woocommerce-api-manager/woocommerce-api-manager.php" , $active_plugins ) ) {
+			?>
+				This plugin is currently inactive / not installed in your site. To know more about this plugin please visit <a href="https://woocommerce.com/products/woocommerce-api-manager/">WooCommerce API Manager</a>
+			<?php
+		} else {
+			$current_option = get_option( 'wcov_api_manager' );
+
+			if( $current_option == "" ) {
+				update_option( 'wcov_api_manager', 'disabled' );
+				$current_option = get_option( 'wcov_api_manager' );			
+			} 
+
+			?>
+				<div class="switch-field">
+					<input type="radio" id="wcov_api_manager_enabled" name="wcov_api_manager" value="enabled" <?php echo ( $current_option == "enabled" ) ? "checked" : ""; ?> />
+					<label for="wcov_api_manager_enabled">Enabled</label>
+					<input type="radio" id="wcov_api_manager_disabled" name="wcov_api_manager" value="disabled" <?php echo ( $current_option == "disabled" ) ? "checked" : ""; ?> />
+					<label for="wcov_api_manager_disabled">Disabled</label>
+				</div>
+			<?php
+		}
 	}
 
 	/**

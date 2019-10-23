@@ -253,3 +253,338 @@
 .order-view-admin-settings .switch-field label:last-of-type {
 	border-radius: 0 4px 4px 0;
 }
+
+
+/**
+ * Order View Admin settings page CSS
+ *
+ */
+
+.order-view-order-details #woocommerce-coupon-data .inside, 
+.order-view-order-details #woocommerce-order-data .inside, 
+.order-view-order-details #woocommerce-order-items .inside,
+.order-view-order-details #woocommerce-order-downloads .inside, 
+.order-view-order-details #woocommerce-product-data .inside, 
+.order-view-order-details #woocommerce-product-type-options .inside {
+    margin: 0;
+    padding: 0;
+}
+
+.order-view-order-details #order_data {
+    padding: 23px 24px 12px;
+}
+
+.order-view-order-details #order_data h2 {
+    margin: 0;
+    font-family: HelveticaNeue-Light,"Helvetica Neue Light","Helvetica Neue",sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-shadow: 1px 1px 1px #fff;
+    padding: 0;
+}
+
+.order-view-order-details #order_data h3, 
+.order-view-order-details #order_data h4 {
+    color: 
+    #333;
+    margin: 1.33em 0 0;
+}
+
+#order_data h3 {
+    font-size: 14px;
+}
+
+.order-view-order-details #order_data p {
+    color: #777;
+}
+
+.order-view-order-details #order_data p.order_number {
+    margin: 0;
+    font-family: HelveticaNeue-Light,"Helvetica Neue Light","Helvetica Neue",sans-serif;
+    font-weight: 400;
+    line-height: 1.6em;
+    font-size: 16px;
+}
+
+.order-view-order-details #order_data .order_data_column .form-field label {
+    display: block;
+    padding: 0 0 3px;
+}
+
+.order-view-order-details #order_data .order_data_column .form-field input[type="text"] {
+	width:100%;
+}
+
+.order-view-order-details #order_data .order_data_column {
+    width: 32%;
+    padding: 0 2% 0 0;
+    float: left;
+}
+
+.order-view-order-details #order_data .order_data_column:last-child {
+    padding-right: 0;
+}
+
+.order-view-order-details #order_data .order_data_column .form-field .date-picker {
+    width: 50% !important;
+}
+
+.order-view-order-details #order_data .order_data_column .form-field .hour, 
+.order-view-order-details #order_data .order_data_column .form-field .minute {
+    width: 3.5em;
+}
+
+.order-view-order-details #order_data .order_data_column .wc-customer-user label a, 
+.order-view-order-details #order_data .order_data_column .wc-order-status label a {
+    float: right;
+    margin-left: 8px;
+}
+
+.order-view-order-details #order_data .order_data_column .address strong {
+	display: block;
+}
+
+.order-view-order-details #order_data .order_data_column p.none_set {
+    color: #999;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper {
+    margin: 0;
+    overflow-x: auto;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items {
+    width: 100%;
+    background: 
+    #fff;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items thead th:first-child,
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td:first-child {
+    padding-left: 2em;
+}
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items thead th:last-child,
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td:last-child {
+    padding-right: 2em;
+}
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items thead th.sortable {
+    cursor: pointer;
+}
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .item {
+    min-width: 200px;
+}
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items thead th {
+    text-align: left;
+    padding: 1em;
+    font-weight: 400;
+    color: #999;
+	background: #f8f8f8;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items th.line_tax {
+    white-space: nowrap;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items tbody th, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td {
+    padding: 1.5em 1em 1em;
+    text-align: left;
+    line-height: 1.5em;
+    vertical-align: top;
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .cost, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .item_cost, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .line_cost, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .line_tax, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .quantity, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .tax, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items .tax_class {
+    text-align: right;
+}
+
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items tbody#order_line_items tr:first-child td {
+    border-top: none;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items tbody tr:first-child td {
+    border-top: 8px solid #f8f8f8;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items tbody tr:last-child td {
+    border-bottom: 1px solid 
+    #dfdfdf;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td.thumb {
+    text-align: left;
+    width: 38px;
+    padding-bottom: 1.5em;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td.thumb .wc-order-item-thumbnail {
+    width: 38px;
+    height: 38px;
+    border: 2px solid #e8e8e8;
+	background: #f8f8f8;
+	color: #ccc;
+    position: relative;
+    font-size: 21px;
+    display: block;
+    text-align: center;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td.thumb .wc-order-item-thumbnail::before {
+    font-family: Dashicons;
+    speak: none;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    content: "";
+    width: 38px;
+    line-height: 38px;
+    display: block;
+}
+
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td.name .wc-order-item-sku, 
+.order-view-order-details #woocommerce-order-items .woocommerce_order_items_wrapper table.woocommerce_order_items td.name .wc-order-item-variation {
+    display: block;
+    margin-top: .5em;
+    font-size: .92em !important;
+    color: 
+    #888;
+}
+
+.order-view-order-details #woocommerce-order-items .wc-order-data-row {
+    border-bottom: 1px solid #dfdfdf;
+	padding: 1.5em 2em;
+	background: #f8f8f8;
+    line-height: 2em;
+    text-align: right;
+}
+
+.order-view-order-details #woocommerce-order-items .wc-order-data-row::after, 
+.order-view-order-details #woocommerce-order-items .wc-order-data-row::before {
+    content: ' ';
+    display: table;
+}
+
+.order-view-order-details #woocommerce-order-items .wc-order-totals {
+    float: right;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.order-view-order-details #woocommerce-order-items .wc-order-totals .label {
+    vertical-align: top;
+}
+
+.order-view-order-details #woocommerce-order-items .wc-order-totals .total {
+    font-size: 1em !important;
+    width: 10em;
+    margin: 0 0 0 .5em;
+    box-sizing: border-box;
+}
+
+.order-view-order-details #woocommerce-order-items .wc-order-totals .amount {
+    font-weight: 700;
+}
+
+.order-view-order-details #woocommerce-order-items .amount {
+    white-space: nowrap;
+}
+
+.order-view-order-details #poststuff #woocommerce-order-notes .inside{
+	margin: 0;
+	padding: 0;
+}
+
+.order-view-order-details .toggle-indicator {
+    color: #72777c;
+}
+
+.js .order-view-order-details .postbox .handlediv .toggle-indicator::before {
+    margin-top: 4px;
+    width: 20px;
+    border-radius: 50%;
+    text-indent: -1px;
+}
+
+.js .order-view-order-details .meta-box-sortables .postbox .toggle-indicator::before {
+	content: "\f142";
+	display: inline-block;
+	font: normal 20px/1 dashicons;
+	text-decoration: none !important;
+}
+
+.order-view-order-details #poststuff #woocommerce-order-notes .inside ul.order_notes li {
+    padding: 0 10px;
+}
+
+.order-view-order-details ul.order_notes li .note_content {
+    padding: 10px;
+    background: #efefef;
+    position: relative;
+}
+
+.order-view-order-details ul.order_notes li.system-note .note_content {
+    background: 
+    #d7cad2;
+}
+
+.order-view-order-details ul.order_notes li .note_content p {
+    margin: 0;
+    padding: 0;
+    word-wrap: break-word;
+}
+
+.order-view-order-details ul.order_notes li .note_content::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: #efefef
+    transparent;
+}
+
+.order-view-order-details ul.order_notes li.system-note .note_content::after {
+    border-color: #d7cad2
+    transparent;
+}
+
+.order-view-order-details ul.order_notes li p.meta {
+    padding: 10px;
+    color: #999;
+    margin: 0;
+    font-size: 11px;
+}
+
+.order-view-order-details  ul.order_notes li p.meta .exact-date {
+    border-bottom: 1px dotted #999;
+}
+

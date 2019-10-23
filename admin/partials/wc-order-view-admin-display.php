@@ -63,11 +63,13 @@
 					(<?php echo $total_count; ?>)
 					<?php echo ( !empty( $count_orders ) ) ? "|" : ""; ?>
 				</li>
-				<li class="mine">
-					<a <?php echo ( isset( $_REQUEST[ 'author' ] ) && $_REQUEST[ 'author' ] == $current_user->ID ) ? 'class="current"' : ''; ?> href="admin.php?page=wc-order-view&author=<?php echo $current_user->ID; ?>">Mine </a> 
-					(<?php echo $user_posts_count; ?>)
-					<?php echo ( !empty( $count_orders ) ) ? "|" : ""; ?>
-				</li>
+				<?php if ( $user_posts_count > 0 ) : ?>
+					<li class="mine">
+						<a <?php echo ( isset( $_REQUEST[ 'author' ] ) && $_REQUEST[ 'author' ] == $current_user->ID ) ? 'class="current"' : ''; ?> href="admin.php?page=wc-order-view&author=<?php echo $current_user->ID; ?>">Mine </a> 
+						(<?php echo $user_posts_count; ?>)
+						<?php echo ( !empty( $count_orders ) ) ? "|" : ""; ?>
+					</li>
+				<?php endif; ?>
 				<?php foreach ( $count_orders as $order_status => $count_order ) : ?> 
 					<li class="<?php echo $order_status; ?>">
 						<a <?php echo ( $_REQUEST[ 'post_status' ] == $order_status ) ? 'class="current"' : ''; ?> href="admin.php?page=wc-order-view&post_status=<?php echo $order_status; ?>">
