@@ -21,6 +21,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( WC()->payment_gateways() ) {
+	$payment_gateways = WC()->payment_gateways->payment_gateways();
+} else {
+	$payment_gateways = array();
+}
+
+$payment_method = $order->get_payment_method();
+
 $payment_gateway     = wc_get_payment_gateway_by_order( $order );
 $line_items          = $order->get_items( apply_filters( 'woocommerce_admin_order_item_types', 'line_item' ) );
 $discounts           = $order->get_items( 'discount' );
@@ -101,8 +109,51 @@ if ( wc_tax_enabled() ) {
 					<div id="woocommerce-order-data" class="postbox">
 						<div class="inside">
 							<div id="order_data" class="panel woocommerce-order-data">
-								<h2 class="woocommerce-order-data__heading">Order #<?php echo $order->get_id(); ?> details</h2>
-								<p class="woocommerce-order-data__meta order_number"> Payment via <?php echo $order->get_payment_method_title(); ?>. Paid on <?php echo $order->get_date_created()->format ('F j, Y @ g:i a'); ?></p>
+								<h2 class="woocommerce-order-data__heading">
+									<h2 class="woocommerce-order-data__heading">
+										<?php
+										/* translators: 1: order number */
+										printf(
+											esc_html__( 'Order #%1$s details', 'wc-order-view' ),
+											esc_html( $order->get_order_number() )
+										);
+										?>
+									</h2>
+								</h2>
+								<p class="woocommerce-order-data__meta order_number">
+									<?php
+
+										$meta_list = array();
+										if ( $payment_method && 'other' !== $payment_method ) {
+											/* translators: %s: payment method */
+											$payment_method_string = sprintf(
+												__( 'Payment via %s', 'wc-order-view' ),
+												esc_html( isset( $payment_gateways[ $payment_method ] ) ? $payment_gateways[ $payment_method ]->get_title() : $payment_method )
+											);
+											if ( $transaction_id = $order->get_transaction_id() ) {
+												$payment_method_string .= ' (' . esc_html( $transaction_id ) . ')';
+											}
+											$meta_list[] = $payment_method_string;
+										}
+										if ( $order->get_date_paid() ) {
+											/* translators: 1: date 2: time */
+											$meta_list[] = sprintf(
+												__( 'Paid on %1$s @ %2$s', 'wc-order-view' ),
+												wc_format_datetime( $order->get_date_paid() ),
+												wc_format_datetime( $order->get_date_paid(), get_option( 'time_format' ) )
+											);
+										}
+										if ( $ip_address = $order->get_customer_ip_address() ) {
+											/* translators: %s: IP address */
+											$meta_list[] = sprintf(
+												__( 'Customer IP: %s', 'wc-order-view' ),
+												'<span class="woocommerce-Order-customerIP">' . esc_html( $ip_address ) . '</span>'
+											);
+										}
+										echo wp_kses_post( implode( '. ', $meta_list ) );
+
+									?>
+								</p>
 								<div class="order_data_column_container">
 									<div class="order_data_column">
 										<h3>General</h3>
@@ -127,7 +178,11 @@ if ( wc_tax_enabled() ) {
 									<div class="order_data_column">
 										<h3>Billing</h3>
 										<div class="address">
-											<p><?php echo $order->get_formatted_billing_address(); ?></p>
+											<?php if( ! empty( $order->get_formatted_billing_address() ) ) : ?>
+												<p><?php echo $order->get_formatted_billing_address(); ?></p>
+											<?php else : ?>
+												<p class="none_set"><strong>Address:</strong>No billing address set.</p>
+											<?php endif; ?>
 											<p>
 												<strong>Email Address:</strong>
 												<a href="mailto:<?php echo $order->get_billing_email(); ?>"><?php echo $order->get_billing_email(); ?></a>
@@ -141,7 +196,7 @@ if ( wc_tax_enabled() ) {
 									<div class="order_data_column">
 										<h3>Shipping</h3>
 										<div class="address">
-											<?php if( !empty( $order->get_formatted_shipping_address() ) ) : ?>
+											<?php if( ! empty( $order->get_formatted_shipping_address() ) ) : ?>
 												<p><?php echo $order->get_formatted_shipping_address(); ?></p>
 											<?php else : ?>
 												<p class="none_set"><strong>Address:</strong>No shipping address set.</p>
