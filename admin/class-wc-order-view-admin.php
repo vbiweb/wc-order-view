@@ -132,7 +132,7 @@ class Wc_Order_View_Admin {
 
 		$hook = add_menu_page( 'WC Orders', 'WC Orders', 'products_admin', 'wc-order-view', array ( $this, 'wc_order_view_page') , 'dashicons-list-view', 55 );
 		$hook = add_submenu_page('wc-order-view', 'All Orders', 'All Orders', 'products_admin', 'wc-order-view', array( $this , 'wc_order_view_page' ));
-		add_submenu_page('wc-order-view', 'Order View - Settings', 'Settings', 'products_admin', 'wc-order-view-settings', array( $this , 'wc_order_view_settings_page' ));
+		add_submenu_page('wc-order-view', 'Order View - Settings', 'Settings', 'administrator', 'wc-order-view-settings', array( $this , 'wc_order_view_settings_page' ));
 
 		add_action( "load-$hook", array( $this, 'screen_option' ) );
 
@@ -168,6 +168,8 @@ class Wc_Order_View_Admin {
 	public function wc_order_view_page() {
 
 		if( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == "view" ) {
+
+			$post = new WP_Post( $_GET[ 'order_id' ] );
 
 			$order = new WC_Order( $_GET[ 'order_id' ] );
 

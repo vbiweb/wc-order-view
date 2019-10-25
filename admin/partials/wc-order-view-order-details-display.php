@@ -15,11 +15,100 @@
 /**
  * Objects available in this context.
  *
+ * @var      WP_Post     $post     The wordpress post object of the woocommerce order in this context .
  * @var      WC_Order    $order    The woocommerce order object initialized with the current order id.
  * @var      WP_User     $user     The wordpress user object initialized with the user associated with the current order.
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$billing_fields = apply_filters(
+	'woocommerce_admin_billing_fields', array(
+		'first_name' => array(
+			'label' => __( 'First name', 'woocommerce' ),
+			'show'  => false,
+		),
+		'last_name'  => array(
+			'label' => __( 'Last name', 'woocommerce' ),
+			'show'  => false,
+		),
+		'company'    => array(
+			'label' => __( 'Company', 'woocommerce' ),
+			'show'  => false,
+		),
+		'address_1'  => array(
+			'label' => __( 'Address line 1', 'woocommerce' ),
+			'show'  => false,
+		),
+		'address_2'  => array(
+			'label' => __( 'Address line 2', 'woocommerce' ),
+			'show'  => false,
+		),
+		'city'       => array(
+			'label' => __( 'City', 'woocommerce' ),
+			'show'  => false,
+		),
+		'postcode'   => array(
+			'label' => __( 'Postcode / ZIP', 'woocommerce' ),
+			'show'  => false,
+		),
+		'country'    => array(
+			'label'   => __( 'Country', 'woocommerce' ),
+			'show'    => false,
+		),
+		'state'      => array(
+			'label' => __( 'State / County', 'woocommerce' ),
+			'show'  => false,
+		),
+		'email'      => array(
+			'label' => __( 'Email address', 'woocommerce' ),
+		),
+		'phone'      => array(
+			'label' => __( 'Phone', 'woocommerce' ),
+		),
+	)
+);
+
+$shipping_fields = apply_filters(
+	'woocommerce_admin_shipping_fields', array(
+		'first_name' => array(
+			'label' => __( 'First name', 'woocommerce' ),
+			'show'  => false,
+		),
+		'last_name'  => array(
+			'label' => __( 'Last name', 'woocommerce' ),
+			'show'  => false,
+		),
+		'company'    => array(
+			'label' => __( 'Company', 'woocommerce' ),
+			'show'  => false,
+		),
+		'address_1'  => array(
+			'label' => __( 'Address line 1', 'woocommerce' ),
+			'show'  => false,
+		),
+		'address_2'  => array(
+			'label' => __( 'Address line 2', 'woocommerce' ),
+			'show'  => false,
+		),
+		'city'       => array(
+			'label' => __( 'City', 'woocommerce' ),
+			'show'  => false,
+		),
+		'postcode'   => array(
+			'label' => __( 'Postcode / ZIP', 'woocommerce' ),
+			'show'  => false,
+		),
+		'country'    => array(
+			'label'   => __( 'Country', 'woocommerce' ),
+			'show'    => false,
+		),
+		'state'      => array(
+			'label' => __( 'State / County', 'woocommerce' ),
+			'show'  => false,
+		),
+	)
+);
 
 if ( WC()->payment_gateways() ) {
 	$payment_gateways = WC()->payment_gateways->payment_gateways();
@@ -28,6 +117,8 @@ if ( WC()->payment_gateways() ) {
 }
 
 $payment_method = $order->get_payment_method();
+
+$order_type_object = get_post_type_object( $post->post_type );
 
 $payment_gateway     = wc_get_payment_gateway_by_order( $order );
 $line_items          = $order->get_items( apply_filters( 'woocommerce_admin_order_item_types', 'line_item' ) );
@@ -112,9 +203,10 @@ if ( wc_tax_enabled() ) {
 								<h2 class="woocommerce-order-data__heading">
 									<h2 class="woocommerce-order-data__heading">
 										<?php
-										/* translators: 1: order number */
+										/* translators: 1: order type 2: order number */
 										printf(
-											esc_html__( 'Order #%1$s details', 'wc-order-view' ),
+											esc_html__( '%1$s #%2$s details', 'wc-order-view' ),
+											esc_html( $order_type_object->labels->singular_name ),
 											esc_html( $order->get_order_number() )
 										);
 										?>
@@ -156,15 +248,15 @@ if ( wc_tax_enabled() ) {
 								</p>
 								<div class="order_data_column_container">
 									<div class="order_data_column">
-										<h3>General</h3>
+										<h3><?php esc_html_e( 'General', 'wc-order-view' ); ?></h3>
 										<p class="form-field form-field-wide">
-											<label for="order_date">Date Created:</label>
-											<input class="date-picker" type="text" name="order_date" maxlength="10" value="<?php echo $order->get_date_created()->format ('Y-m-d'); ?>" readonly /> @ 
-											<input class="hour" type="number" name="order_date_hour" min="0" max="23" step="1" value="<?php echo $order->get_date_created()->format ('H'); ?>" readonly /> :
-											<input class="minute" type="number" name="order_date_minute" min="0" max="59" step="1" value="<?php echo $order->get_date_created()->format ('i'); ?>" readonly /> 
+											<label for="order_date"><?php _e( 'Date created:', 'wc-order-view' ); ?></label>
+											<input class="date-picker" type="text" name="order_date" maxlength="10" value="<?php echo esc_attr( date_i18n( 'Y-m-d', strtotime( $post->post_date ) ) ); ?>" readonly /> &lrm; 
+											<input class="hour" type="number" name="order_date_hour" min="0" max="23" step="1" value="<?php echo esc_attr( date_i18n( 'H', strtotime( $post->post_date ) ) ); ?>" readonly /> :
+											<input class="minute" type="number" name="order_date_minute" min="0" max="59" step="1" value="<?php echo esc_attr( date_i18n( 'i', strtotime( $post->post_date ) ) ); ?>" readonly /> 
 										</p>
 										<p class="form-field form-field-wide wc-order-status">
-											<label for="order_status">Status:</label>
+											<label for="order_status"><?php _e( 'Status:', 'wc-order-view' ); ?></label>
 											<input class="" type="text" name="order_status" value="<?php echo ucfirst( $order->get_status() ); ?>" readonly />
 										</p>
 										<p class="form-field form-field-wide wc-customer-user">
@@ -174,34 +266,72 @@ if ( wc_tax_enabled() ) {
 											</label>
 											<input class="" type="text" name="order_status" value="<?php echo $user->first_name . ' ' . $user->last_name . ' (#' . $user->ID . ' - ' . $user->user_email . ')'  ?>" readonly />
 										</p>
+										<?php do_action( 'woocommerce_admin_order_data_after_order_details', $order ); ?>
 									</div>
 									<div class="order_data_column">
-										<h3>Billing</h3>
+										<h3><?php esc_html_e( 'Billing', 'wc-order-view' ); ?></h3>
 										<div class="address">
-											<?php if( ! empty( $order->get_formatted_billing_address() ) ) : ?>
-												<p><?php echo $order->get_formatted_billing_address(); ?></p>
-											<?php else : ?>
-												<p class="none_set"><strong>Address:</strong>No billing address set.</p>
-											<?php endif; ?>
-											<p>
-												<strong>Email Address:</strong>
-												<a href="mailto:<?php echo $order->get_billing_email(); ?>"><?php echo $order->get_billing_email(); ?></a>
-											</p>
-											<p>
-												<strong>Phone:</strong>
-												<a href="tel:<?php echo $order->get_billing_phone(); ?>"><?php echo $order->get_billing_phone(); ?></a>
-											</p>
+											<?php
+											// Display values.
+											if ( $order->get_formatted_billing_address() ) {
+												echo '<p>' . wp_kses( $order->get_formatted_billing_address(), array( 'br' => array() ) ) . '</p>';
+											} else {
+												echo '<p class="none_set"><strong>' . __( 'Address:', 'wc-order-view' ) . '</strong> ' . __( 'No billing address set.', 'wc-order-view' ) . '</p>';
+											}
+											foreach ( $billing_fields as $key => $field ) {
+												if ( isset( $field['show'] ) && false === $field['show'] ) {
+													continue;
+												}
+												$field_name = 'billing_' . $key;
+												if ( isset( $field['value'] ) ) {
+													$field_value = $field['value'];
+												} elseif ( is_callable( array( $order, 'get_' . $field_name ) ) ) {
+													$field_value = $order->{"get_$field_name"}( 'edit' );
+												} else {
+													$field_value = $order->get_meta( '_' . $field_name );
+												}
+												if ( 'billing_phone' === $field_name ) {
+													$field_value = wc_make_phone_clickable( $field_value );
+												} else {
+													$field_value = make_clickable( esc_html( $field_value ) );
+												}
+												if ( $field_value ) {
+													echo '<p><strong>' . esc_html( $field['label'] ) . ':</strong> ' . wp_kses_post( $field_value ) . '</p>';
+												}
+											}
+											?>
 										</div>
+										<?php do_action( 'woocommerce_admin_order_data_after_billing_address', $order ); ?>
 									</div>
 									<div class="order_data_column">
-										<h3>Shipping</h3>
+										<h3><?php esc_html_e( 'Shipping', 'wc-order-view' ); ?></h3>
 										<div class="address">
-											<?php if( ! empty( $order->get_formatted_shipping_address() ) ) : ?>
-												<p><?php echo $order->get_formatted_shipping_address(); ?></p>
-											<?php else : ?>
-												<p class="none_set"><strong>Address:</strong>No shipping address set.</p>
-											<?php endif; ?>
+											<?php
+											// Display values.
+											if ( $order->get_formatted_shipping_address() ) {
+												echo '<p>' . wp_kses( $order->get_formatted_shipping_address(), array( 'br' => array() ) ) . '</p>';
+											} else {
+												echo '<p class="none_set"><strong>' . __( 'Address:', 'wc-order-view' ) . '</strong> ' . __( 'No shipping address set.', 'wc-order-view' ) . '</p>';
+											}
+											if ( ! empty( $shipping_fields ) ) {
+												foreach ( $shipping_fields as $key => $field ) {
+													if ( isset( $field['show'] ) && false === $field['show'] ) {
+														continue;
+													}
+													$field_name = 'shipping_' . $key;
+													if ( is_callable( array( $order, 'get_' . $field_name ) ) ) {
+														$field_value = $order->{"get_$field_name"}( 'edit' );
+													} else {
+														$field_value = $order->get_meta( '_' . $field_name );
+													}
+													if ( $field_value ) {
+														echo '<p><strong>' . esc_html( $field['label'] ) . ':</strong> ' . wp_kses_post( $field_value ) . '</p>';
+													}
+												}
+											}
+											?>
 										</div>
+										<?php do_action( 'woocommerce_admin_order_data_after_shipping_address', $order ); ?>
 									</div>
 								</div>
 								<div class="clear"></div>

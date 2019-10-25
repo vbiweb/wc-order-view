@@ -311,8 +311,8 @@ class WC_Order_View_ListTable extends WP_List_Table {
 	function column_order_id( $item ) {
 		
 		$order_id  = "";
-		$order_id .= '<a href="#" class="order-preview" data-order-id="' . $item[ 'order_id' ] . '" title="Preview">Preview</a>';
-		$order_id .= '<a href="#" class="order-view"><strong>#' . $item[ 'order_id' ] .' '. $item[ 'name' ] . '</strong></a>';
+		$order_id .= '<a href="admin.php?page=wc-order-view&action=view&order_id=' . $item[ 'order_id' ] . '" class="order-preview" data-order-id="' . $item[ 'order_id' ] . '" title="Preview">Preview</a>';
+		$order_id .= '<a href="admin.php?page=wc-order-view&action=view&order_id=' . $item[ 'order_id' ] . '" class="order-view"><strong>#' . $item[ 'order_id' ] .' '. $item[ 'name' ] . '</strong></a>';
 
 		return $order_id;
 
