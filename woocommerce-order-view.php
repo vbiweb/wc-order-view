@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://kgopalkrishna.com
- * @since             1.0.0
+ * @since             1.0.1
  * @package           Wc_Order_View
  *
  * @wordpress-plugin
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WC_ORDER_VIEW_VERSION', '1.0.0' );
+define( 'WC_ORDER_VIEW_VERSION', '1.0.1' );
 
 /**
  * The code that runs during plugin activation.
