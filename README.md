@@ -4,7 +4,7 @@ Donate link: https://kgopalkrishna.com
 Tags: woocommerce, order, view
 Requires at least: 5.0.0
 Tested up to: 5.2.3
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,22 +52,23 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.0 =
 * Initial release.
 
-== A brief Markdown Example ==
+= 1.0.1 =
+* Issue #2 - Fixed Date created value displayed for each order
+* Issue #3 - Fixed the total orders count shown in all orders page
 
-Ordered list:
+== Features ==
 
-1. Some feature
-1. Another feature
-1. Something else about the plugin
+1. Strict view only access to orders.
+1. View each orders individually.
 
-Unordered list:
+== Planned Features ==
 
-* something
-* something else
-* third thing
+* Support for 3rd party woocommerce plugins
+* hooks and filters for adding custom content in view order page
+* Export orders in CSV format
 
 Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
 Titles are optional, naturally.
