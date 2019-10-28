@@ -150,7 +150,7 @@ class Wc_Order_View_Admin {
 		$option = 'per_page';
 		$args   = array(
 			'label'   => 'Orders',
-			'default' => 5,
+			'default' => 20,
 			'option'  => 'orders_per_page'
 		);
 
@@ -169,7 +169,7 @@ class Wc_Order_View_Admin {
 
 		if( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == "view" ) {
 
-			$post = new WP_Post( $_GET[ 'order_id' ] );
+			$post = get_post( $_GET[ 'order_id' ] );
 
 			$order = new WC_Order( $_GET[ 'order_id' ] );
 
