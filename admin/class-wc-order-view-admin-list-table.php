@@ -135,7 +135,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 	 * @return int
 	 * @since  1.0.0
 	 */
-	public function record_count() {
+	public static function record_count() {
 
 		$meta_query = array();
 		$meta_query['relation'] = "AND";
@@ -162,6 +162,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		}		
 
 		$args = array (
+			'numberposts'      => -1,
 			'post_type'        => 'shop_order',
 			'post_status'      => ( isset ( $_REQUEST[ 'post_status' ] ) && $_REQUEST[ 'post_status' ] != "" ) ? $_REQUEST[ 'post_status' ] : array( 'wc-completed', 'wc-on-hold' ),
 			'meta_query'       => $meta_query
@@ -444,9 +445,9 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		/** Process bulk action */
 		//$this->process_bulk_action();
 
-		$per_page     = $this->get_items_per_page( 'orders_per_page', 5 );
+		$per_page     = $this->get_items_per_page( 'orders_per_page', 20 );
 		$current_page = $this->get_pagenum();
-		$total_items  = $this->record_count();
+		$total_items  = self::record_count();
 
 		$this->set_pagination_args( array(
 		'total_items' => $total_items, //WE have to calculate the total number of items
