@@ -48,7 +48,7 @@
 			$args = array (
 				'post_type'    => 'shop_order',
 				'author' 	   => $current_user->ID,
-				'post_status'  => array( 'wc-completed', 'wc-on-hold' )
+				'post_status'  => array_keys( wc_get_order_statuses() )
 			);
 
 			$user_posts = get_posts( $args );

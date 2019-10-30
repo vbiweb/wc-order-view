@@ -143,6 +143,7 @@ if ( wc_tax_enabled() ) {
 		<div id="post-body" class="metabox-holder columns-2">
 			<div id="postbox-container-1" class="postbox-container">
 				<div id="side-sortables" class="meta-box-sortables ui-sortable">
+					<?php include( 'views/wc-order-view-order-details-pdf-invoices-metabox.php' ); ?>
 					<div id="woocommerce-order-notes" class="postbox ">
 						<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Order notes</span><span class="toggle-indicator" aria-hidden="true"></span></button>
 						<h2 class="hndle ui-sortable-handle"><span>Order notes</span></h2>
@@ -834,6 +835,8 @@ if ( wc_tax_enabled() ) {
 							</div>
 						</div>
 					</div>
+					<?php include( 'views/wc-order-view-order-details-api-manager-keys-metabox.php' ); ?>
+					<?php include( 'views/wc-order-view-order-details-api-manager-activations-metabox.php' ); ?>
 				</div>
 			</div>
 		</div>

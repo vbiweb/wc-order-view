@@ -73,7 +73,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 			'orderby'          => 'date',
 			'order'            => 'DESC',
 			'post_type'        => 'shop_order',
-			'post_status'      => ( isset ( $_REQUEST[ 'post_status' ] ) && $_REQUEST[ 'post_status' ] != "" ) ? $_REQUEST[ 'post_status' ] : array( 'wc-completed', 'wc-on-hold' ),
+			'post_status'      => ( isset ( $_REQUEST[ 'post_status' ] ) && $_REQUEST[ 'post_status' ] != "" ) ? $_REQUEST[ 'post_status' ] : array_keys( wc_get_order_statuses() ),
 			'meta_query'       => $meta_query
 		);
 
@@ -164,7 +164,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		$args = array (
 			'numberposts'      => -1,
 			'post_type'        => 'shop_order',
-			'post_status'      => ( isset ( $_REQUEST[ 'post_status' ] ) && $_REQUEST[ 'post_status' ] != "" ) ? $_REQUEST[ 'post_status' ] : array( 'wc-completed', 'wc-on-hold' ),
+			'post_status'      => ( isset ( $_REQUEST[ 'post_status' ] ) && $_REQUEST[ 'post_status' ] != "" ) ? $_REQUEST[ 'post_status' ] : array_keys( wc_get_order_statuses() ),
 			'meta_query'       => $meta_query
 		);
 

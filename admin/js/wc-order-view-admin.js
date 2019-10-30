@@ -35,6 +35,42 @@
 	 		width: '240px',
 	 		minimumInputLength: 1
 	 	});
+
+	 	$( '.order-view-order-details .wc-metabox h3.fixed' ).click( function(ee) {
+	 		$( this ).closest( '.wc-metabox' ).toggleClass( 'closed' ).toggleClass( 'open' );
+	 		$( this ).closest( '.wc-metaboxes-wrapper' ).find( '.wc-metabox > .wc-metabox-content' ).slideToggle();
+	 	});
+
+	 	$( '.order-view-order-details .am_expand_text_box' ).mouseover( function(ee) {
+	 		var $this = $(this);
+	 		if (!$this.data('expand')) {
+	 		    $this.data('expand', true);
+	 		    $this.animate({
+	 		      width: '+=140px',
+	 		      left: '-=6px'
+	 		    }, 'linear');
+	 		    $this.siblings('.s').animate({
+	 		      width: '-=140px',
+	 		      left: '+=6px'
+	 		    }, 'linear');
+	 		  }
+	 		  $this.focus();
+	 		  $this.select();
+	 	});
+
+	 	$( '.order-view-order-details .am_expand_text_box' ).mouseout( function(ee) {
+	 		var $this = jQuery(this);
+	 		  $this.data('expand', false);
+	 		  $this.animate({
+	 		    width: '-=140px',
+	 		    left: '+=6px'
+	 		  }, 'linear');
+	 		  $this.siblings('.s').animate({
+	 		    width: '+=140px',
+	 		    left: '-=6px'
+	 		  }, 'linear');
+	 	});
+
 	 });
 
 })( jQuery );

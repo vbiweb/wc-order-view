@@ -588,3 +588,142 @@
     border-bottom: 1px dotted #999;
 }
 
+
+.order-view-order-details #wc_am_api_keys .inside, 
+.order-view-order-details #wc_am_api_key_activations .inside {
+    margin: 0;
+    padding: 0;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metaboxes {
+    border-bottom: 1px solid #eee;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox.closed {
+    border-radius: 3px;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox:last-of-type {
+    border-bottom: 0;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox {
+    background: #fff;
+    margin: 0 !important;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3.fixed {
+    cursor: pointer !important;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox.closed h3 {
+    border: 0;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3 {
+    margin: 0 !important;
+    padding: .75em .75em .75em 1em !important;
+    font-size: 1em !important;
+    overflow: hidden;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3 .handlediv {
+    background-position: 6px 5px !important;
+    visibility: hidden;
+    height: 26px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox.closed .handlediv::before {
+    content: "\f140" !important;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox .handlediv::before {
+    content: "\f142" !important;
+    cursor: pointer;
+    display: inline-block;
+    font: 400 20px/1 Dashicons;
+    line-height: .5 !important;
+    padding: 8px 10px;
+    position: relative;
+    right: 12px;
+    top: 0;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3 strong {
+    font-weight: 400;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3:hover .handlediv {
+    visibility: visible;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table {
+    width: 100%;
+    position: relative;
+    background-color: #fdfdfd;
+    padding: 1em;
+    border-top: 1px solid #eee;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td {
+    text-align: left;
+    padding: 0 6px 1em 0;
+    vertical-align: top;
+    border: 0;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td label {
+    text-align: left;
+    display: block;
+    line-height: 21px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input, 
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td textarea {
+    width: 100%;
+    margin: 0;
+    display: block;
+    font-size: 14px;
+    padding: 4px;
+    color: 
+    #555;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input.short {
+    width: 200px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input {
+    float: left;
+    min-width: 200px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input.am_checkbox, 
+.order-view-order-details td > input[type="checkbox"], 
+.order-view-order-details .wp-admin p input[type="checkbox"].am_checkbox {
+    border-width: 1px;
+    border-style: solid;
+    clear: none;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 0;
+    height: 16px;
+    margin: 2px 3px 2px 0;
+    outline: 0;
+    padding: 0 !important;
+    text-align: center;
+    vertical-align: middle;
+    width: 16px;
+    min-width: 16px;
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.order-view-order-details #activations-table {
+    width: 100%;
+    text-align: left;
+}
+
+.order-view-order-details #activations-table th {
+    padding: 10px;
+    background: #424242;
+    color: #fff;
+}
