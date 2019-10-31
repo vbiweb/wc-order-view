@@ -837,6 +837,7 @@ if ( wc_tax_enabled() ) {
 					</div>
 					<?php include( 'views/wc-order-view-order-details-api-manager-keys-metabox.php' ); ?>
 					<?php include( 'views/wc-order-view-order-details-api-manager-activations-metabox.php' ); ?>
+					<?php include( 'views/wc-order-view-order-details-subscription-related-orders-metabox.php' ); ?>
 				</div>
 			</div>
 		</div>
