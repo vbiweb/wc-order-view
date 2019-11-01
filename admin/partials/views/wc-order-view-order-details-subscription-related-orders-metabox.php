@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Displays the API Manager activations metabox.
+ * Displays the Subscription Related orders metabox.
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
@@ -120,7 +120,7 @@ if( get_option( 'wcov_subscriptions' ) == 'enabled' ) { ?>
 							?>
 							<tr>
 								<td>
-									<a href="<?php echo esc_url( get_edit_post_link( wcs_get_objects_property( $wc_order, 'id' ) ) ); ?>">
+									<a href="<?php echo esc_url( admin_url ( 'admin.php?page=wc-order-view&action=view&order_id=' . wcs_get_objects_property( $wc_order, 'id' ) ) ); ?>">
 										<?php echo sprintf( esc_html_x( '#%s', 'hash before order number', 'wc-order-view' ), esc_html( $wc_order->get_order_number() ) ); ?>
 									</a>
 								</td>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Displays the API Manager keys metabox.
+ * Displays the API Manager activations metabox.
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *

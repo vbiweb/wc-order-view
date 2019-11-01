@@ -41,6 +41,16 @@
 	 		$( this ).closest( '.wc-metaboxes-wrapper' ).find( '.wc-metabox > .wc-metabox-content' ).slideToggle();
 	 	});
 
+		$( '.order-view-order-details h2.hndle.ui-sortable-handle' ).click( function(ee) {
+			$( this ).closest( '.postbox' ).toggleClass( 'closed' );
+			$( this ).closest( '.postbox' ).find( '.inside' ).slideToggle();
+		});
+
+		$( '.order-view-order-details button.handlediv' ).click( function(ee) {
+			$( this ).closest( '.postbox' ).toggleClass( 'closed' );
+			$( this ).closest( '.postbox' ).find( '.inside' ).slideToggle();
+		});	 	
+
 	 	$( '.order-view-order-details .am_expand_text_box' ).mouseover( function(ee) {
 	 		var $this = $(this);
 	 		if (!$this.data('expand')) {

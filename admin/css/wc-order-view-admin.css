@@ -266,6 +266,7 @@
 .order-view-order-details #woocommerce-order-downloads .inside, 
 .order-view-order-details #woocommerce-product-data .inside, 
 .order-view-order-details #woocommerce-product-type-options .inside {
+    display: block;
     margin: 0;
     padding: 0;
 }
@@ -286,8 +287,7 @@
 
 .order-view-order-details #order_data h3, 
 .order-view-order-details #order_data h4 {
-    color: 
-    #333;
+    color: #333;
     margin: 1.33em 0 0;
 }
 
@@ -537,6 +537,10 @@
 	text-decoration: none !important;
 }
 
+.js .order-view-order-details .meta-box-sortables .postbox.closed .toggle-indicator::before{
+    content: "\f140";
+}
+
 .order-view-order-details #poststuff #woocommerce-order-notes .inside ul.order_notes li {
     padding: 0 10px;
 }
@@ -591,6 +595,7 @@
 
 .order-view-order-details #wc_am_api_keys .inside, 
 .order-view-order-details #wc_am_api_key_activations .inside {
+    display: block;
     margin: 0;
     padding: 0;
 }
@@ -729,6 +734,7 @@
 }
 
 .order-view-order-details #subscription_renewal_orders .inside {
+    display: block;
     margin: 0;
     padding: 0;
 }
@@ -779,4 +785,16 @@
 .order-view-order-details .woocommerce_subscriptions_related_orders table thead th:last-of-type, 
 .order-view-order-details .woocommerce_subscriptions_related_orders table td:last-of-type {
     text-align: right;
+}
+
+.order-view-order-details #woocommerce-subscription-schedule table {
+    width: 100%;
+}
+
+.order-view-order-details #woocommerce-subscription-schedule table td{
+    padding: 10px 0px;
+}
+
+.order-view-order-details #woocommerce-subscription-schedule table td:last-of-type {
+    text-align: right;   
 }

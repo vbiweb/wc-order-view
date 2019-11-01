@@ -137,13 +137,22 @@ if ( wc_tax_enabled() ) {
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="wrap order-view-order-details">
 	<h2>
-		<span class="main_title" tabindex="1">View Order</span> 
+		<span class="main_title" tabindex="1">
+			<?php
+			/* translators: 1: order type */
+			printf(
+				esc_html__( 'View %1$s', 'wc-order-view' ),
+				esc_html( $order_type_object->labels->singular_name ) );
+			?>
+		</span> 
 	</h2>
 	<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 			<div id="postbox-container-1" class="postbox-container">
 				<div id="side-sortables" class="meta-box-sortables ui-sortable">
+					<?php do_action( 'wc_order_view_before_side_sortables_section' , $order, $user, $post ); ?>
 					<?php include( 'views/wc-order-view-order-details-pdf-invoices-metabox.php' ); ?>
+					<?php include( 'views/wc-order-view-order-details-subscription-details-metabox.php' ); ?>
 					<div id="woocommerce-order-notes" class="postbox ">
 						<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Order notes</span><span class="toggle-indicator" aria-hidden="true"></span></button>
 						<h2 class="hndle ui-sortable-handle"><span>Order notes</span></h2>
@@ -194,24 +203,24 @@ if ( wc_tax_enabled() ) {
 							</ul>
 						</div>
 					</div>
+					<?php do_action( 'wc_order_view_after_side_sortables_section' , $order, $user, $post ); ?>
 				</div>
 			</div>
 			<div id="postbox-container-2" class="postbox-container">
 				<div id="normal-sortables" class="meta-box-sortables ui-sortable">
+					<?php do_action( 'wc_order_view_before_order_data_section' , $order, $user, $post ); ?>
 					<div id="woocommerce-order-data" class="postbox">
 						<div class="inside">
 							<div id="order_data" class="panel woocommerce-order-data">
 								<h2 class="woocommerce-order-data__heading">
-									<h2 class="woocommerce-order-data__heading">
-										<?php
-										/* translators: 1: order type 2: order number */
-										printf(
-											esc_html__( '%1$s #%2$s details', 'wc-order-view' ),
-											esc_html( $order_type_object->labels->singular_name ),
-											esc_html( $order->get_order_number() )
-										);
-										?>
-									</h2>
+									<?php
+									/* translators: 1: order type 2: order number */
+									printf(
+										esc_html__( '%1$s #%2$s details', 'wc-order-view' ),
+										esc_html( $order_type_object->labels->singular_name ),
+										esc_html( $order->get_order_number() )
+									);
+									?>
 								</h2>
 								<p class="woocommerce-order-data__meta order_number">
 									<?php
@@ -835,9 +844,11 @@ if ( wc_tax_enabled() ) {
 							</div>
 						</div>
 					</div>
+					<?php do_action( 'wc_order_view_after_order_items_section' , $order, $user, $post ); ?>
 					<?php include( 'views/wc-order-view-order-details-api-manager-keys-metabox.php' ); ?>
 					<?php include( 'views/wc-order-view-order-details-api-manager-activations-metabox.php' ); ?>
 					<?php include( 'views/wc-order-view-order-details-subscription-related-orders-metabox.php' ); ?>
+					<?php do_action( 'wc_order_view_before_after_third_party_sections' , $order, $user, $post ); ?>
 				</div>
 			</div>
 		</div>
