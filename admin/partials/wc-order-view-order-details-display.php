@@ -154,8 +154,16 @@ if ( wc_tax_enabled() ) {
 					<?php include( 'views/wc-order-view-order-details-pdf-invoices-metabox.php' ); ?>
 					<?php include( 'views/wc-order-view-order-details-subscription-details-metabox.php' ); ?>
 					<div id="woocommerce-order-notes" class="postbox ">
-						<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Order notes</span><span class="toggle-indicator" aria-hidden="true"></span></button>
-						<h2 class="hndle ui-sortable-handle"><span>Order notes</span></h2>
+						<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Order/Subscription notes</span><span class="toggle-indicator" aria-hidden="true"></span></button>
+						<h2 class="hndle ui-sortable-handle"><span>
+							<?php
+								/* translators: 1: order type */
+								printf(
+									esc_html__( '%1$s Notes', 'wc-order-view' ),
+									esc_html( $order_type_object->labels->singular_name ) );
+								?>
+							</span>
+						</h2>
 						<div class="inside">
 							<?php 
 								$args = array(
@@ -276,6 +284,16 @@ if ( wc_tax_enabled() ) {
 											</label>
 											<input class="" type="text" name="order_status" value="<?php echo $user->first_name . ' ' . $user->last_name . ' (#' . $user->ID . ' - ' . $user->user_email . ')'  ?>" readonly />
 										</p>
+										<?php if( wcs_is_subscription( $post->ID ) ) { 
+
+											$subscription = wcs_get_subscription( $post->ID );
+											$parent_order_id = $subscription->get_parent_id();
+
+											?>
+											<p class="form-field form-field-wide wcs-subscription-parent">Parent order: 
+												<a href="<?php echo admin_url( 'admin.php?page=wc-order-view&action=view&order_id=' . $parent_order_id ) ?>">#<?php echo $parent_order_id; ?></a>
+											</p>
+										<?php } ?>
 										<?php do_action( 'woocommerce_admin_order_data_after_order_details', $order ); ?>
 									</div>
 									<div class="order_data_column">
@@ -825,6 +843,20 @@ if ( wc_tax_enabled() ) {
 										<td width="1%"></td>
 										<td class="total">
 											<?php echo $order->get_formatted_order_total(); // WPCS: XSS ok. ?>
+											<?php 
+												if( wcs_is_subscription( $post->ID ) ) { 
+													$subscription = wcs_get_subscription( $post->ID );
+
+													$interval = $subscription->get_billing_interval();
+													$period   = $subscription->get_billing_period();
+
+													if( $interval < 2 ) {
+														echo " / " . $period;
+													} else {
+														echo " every " . esc_html( wcs_get_subscription_period_strings( $interval, $period ) );
+													}
+												}
+											?>
 										</td>
 									</tr>
 

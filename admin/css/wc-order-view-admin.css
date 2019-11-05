@@ -124,6 +124,16 @@
     line-height: 1.5em;
 }
 
+.order-view-admin .wp-list-table .column-pdf_invoice {
+    text-align: center;
+    width: 12ch;
+}
+
+.order-view-admin .wp-list-table .column-subscription_relationship {
+    text-align: center;
+    width: 12ch;
+}
+
 .order-view-admin .wp-list-table .column-total {
     width: 8ch;
     text-align: right;
@@ -134,9 +144,15 @@
 }
 
 .order-view-admin .wp-list-table .tooltip {
+    cursor: help;
 	position: relative;
 	display: inline-block;
 	padding: 0px 0px 0px 5px;
+}
+
+
+.order-view-admin .wp-list-table .tooltip .subscription_head.tooltip {
+    width:150px;
 }
 
 .order-view-admin .wp-list-table .tooltip .tooltiptext {
@@ -152,6 +168,12 @@
 	top: -3px;
 	right: 110%;
 	font-size: 10px;
+}
+
+.order-view-admin .wp-list-table .subscription_parent_order .tooltiptext, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order .tooltiptext, 
+.order-view-admin .wp-list-table .subscription_renewal_order .tooltiptext {
+    top: -8px;
 }
 
 .order-view-admin .wp-list-table .tooltip .tooltiptext::after {
@@ -171,6 +193,60 @@
 .order-view-admin .wp-list-table .column-billing_address .description,
 .order-view-admin .wp-list-table .column-shipping_address .description {
     display: block;
+    color: #999;
+}
+
+.order-view-admin .wp-list-table .subscription_head,
+.order-view-admin .wp-list-table .subscription_parent_order, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order, 
+.order-view-admin .wp-list-table .subscription_renewal_order {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    margin: 0 auto;
+}
+
+.order-view-admin .wp-list-table .subscription_head span,
+.order-view-admin .wp-list-table .subscription_parent_order span, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order span, 
+.order-view-admin .wp-list-table .subscription_renewal_order span {
+    text-indent: 0;
+}
+
+.order-view-admin .wp-list-table .subscription_head::after,
+.order-view-admin .wp-list-table .subscription_parent_order::after, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order::after, 
+.order-view-admin .wp-list-table .subscription_renewal_order::after {
+    font-weight: 400;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 16px;
+    top: 0;
+    font-variant: normal;
+    text-transform: none;
+    left: 0;
+}
+
+.order-view-admin .wp-list-table .subscription_head::after, 
+.order-view-admin .wp-list-table .subscription_parent_order::after {
+    font-family: WooCommerce;
+    content: "\e014";
+}
+
+.order-view-admin .wp-list-table .subscription_renewal_order::after {
+    font-family: WooCommerce;
+    content: "\e031";
+}
+
+.order-view-admin .wp-list-table .subscription_resubscribe_order::after {
+    font-family: WooCommerce;
+    content: "\e014";
     color: #999;
 }
 

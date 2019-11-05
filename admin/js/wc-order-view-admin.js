@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	 $( document ).ready(function(e) {
+	 $( document ).ready(function(event) {
 	 	$( '#wc-order-view-customer-search' ).select2({
 	 		placeholder : "Filter by registered customer",
 	 		width: '240px',
@@ -42,13 +42,17 @@
 	 	});
 
 		$( '.order-view-order-details h2.hndle.ui-sortable-handle' ).click( function(ee) {
-			$( this ).closest( '.postbox' ).toggleClass( 'closed' );
-			$( this ).closest( '.postbox' ).find( '.inside' ).slideToggle();
+			var c, d = $(this),
+			   e = d.parent(".postbox"),
+			   f = e.attr("id");
+			 "dashboard_browser_nag" !== f && (e.toggleClass("closed"), c = !e.hasClass("closed"), d.hasClass("handlediv") ? d.attr("aria-expanded", c) : d.closest(".postbox").find("button.handlediv").attr("aria-expanded", c), "press-this" !== postboxes.page && postboxes.save_state(postboxes.page), f && (!e.hasClass("closed") && a.isFunction(postboxes.pbshow) ? postboxes.pbshow(f) : e.hasClass("closed") && a.isFunction(postboxes.pbhide) && postboxes.pbhide(f)), b.trigger("postbox-toggled", e))
 		});
 
 		$( '.order-view-order-details button.handlediv' ).click( function(ee) {
-			$( this ).closest( '.postbox' ).toggleClass( 'closed' );
-			$( this ).closest( '.postbox' ).find( '.inside' ).slideToggle();
+			var c, d = $(this),
+			   e = d.parent(".postbox"),
+			   f = e.attr("id");
+			 "dashboard_browser_nag" !== f && (e.toggleClass("closed"), c = !e.hasClass("closed"), d.hasClass("handlediv") ? d.attr("aria-expanded", c) : d.closest(".postbox").find("button.handlediv").attr("aria-expanded", c), "press-this" !== postboxes.page && postboxes.save_state(postboxes.page), f && (!e.hasClass("closed") && a.isFunction(postboxes.pbshow) ? postboxes.pbshow(f) : e.hasClass("closed") && a.isFunction(postboxes.pbhide) && postboxes.pbhide(f)), b.trigger("postbox-toggled", e))
 		});	 	
 
 	 	$( '.order-view-order-details .am_expand_text_box' ).mouseover( function(ee) {

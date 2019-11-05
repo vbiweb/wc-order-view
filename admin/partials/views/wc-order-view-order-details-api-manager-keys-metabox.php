@@ -6,7 +6,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://kgopalkrishna.com
- * @since      1.0.1
+ * @since      1.1.0
  *
  * @package    Wc_Order_View
  * @subpackage Wc_Order_View/admin/partials/views
@@ -22,7 +22,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if( get_option( 'wcov_api_manager' ) == 'enabled' ) { ?>
+$is_subscription_screen = wcs_is_subscription( $post->ID );
+
+if( get_option( 'wcov_api_manager' ) == 'enabled' && ! $is_subscription_screen ) { ?>
 
 	<div id="wc_am_api_keys" class="postbox ">
 		<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: API Key Products</span><span class="toggle-indicator" aria-hidden="true"></span></button>

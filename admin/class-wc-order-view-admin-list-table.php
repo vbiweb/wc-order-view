@@ -215,10 +215,20 @@ class WC_Order_View_ListTable extends WP_List_Table {
 			'name'    			=> __( 'Name', 'wc-order-view' )
 		);
 
+		if( get_option( 'wcov_pdf_invoices' ) == "enabled" ) {
+			$columns[ 'pdf_invoice' ] = __( 'Invoice', 'wc-order-view' );
+		}
+
 		$columns[ 'date' ] 				= __( 'Date', 'wc-order-view' );
 		$columns[ 'status' ] 			= __( 'Status', 'wc-order-view' );
 		$columns[ 'billing_address' ] 	= __( 'Billing', 'wc-order-view' );
 		$columns[ 'shipping_address' ] 	= __( 'Ship To', 'wc-order-view' );
+
+		if( get_option( 'wcov_subscriptions' ) == "enabled" ) {
+
+			$columns[ 'subscription_relationship' ] = '<div class="subscription_head tooltip">' . esc_attr__( 'Subscription Relationship', 'wc-order-view' ) . '<span class="tooltiptext">' . esc_attr__( 'Subscription Relationship', 'wc-order-view' ) . '</span></div>';
+		}
+
 		$columns[ 'total' ] 			= __( 'Total', 'wc-order-view' );
 
 
@@ -389,6 +399,53 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		$billing_address .= '<span class="description"> via ' . get_post_meta ( $item[ 'order_id' ], '_payment_method_title', true ) . '</span>';
 
 		return $billing_address;
+
+	}
+
+	/**
+	 * Render the invoice column
+	 *
+	 * @param array $item
+	 *
+	 * @return string
+	 * @since   1.1.0
+	 */
+	function column_pdf_invoice( $item ) {
+
+		$order_id = $item[ 'order_id' ];
+
+		$invoice_number_display = get_post_meta( $order_id, '_invoice_number_display', true );
+		$invoice_date = get_post_meta( $order_id, '_invoice_date', true );
+
+		$invoice = '<a href="' . admin_url( 'edit.php?post_type=shop_order&pdfid=' . $order_id ) .'">' . $invoice_number_display . '<br>' . date( 'j F, Y' ) . '</a>';	
+
+		return $invoice;
+
+	}
+
+	/**
+	 * Render the subscription relationship column
+	 *
+	 * @param array $item
+	 *
+	 * @return string
+	 * @since   1.1.0
+	 */
+	function column_subscription_relationship( $item ) {
+
+		$order_id = $item[ 'order_id' ];
+
+		if ( wcs_order_contains_subscription( $order_id, 'renewal' ) ) {
+			echo '<div class="subscription_renewal_order tooltip"><span class="tooltiptext">' . esc_attr__( 'Renewal Order', 'woocommerce-subscriptions' ) . '</span></div>';
+		} elseif ( wcs_order_contains_subscription( $order_id, 'resubscribe' ) ) {
+			echo '<div class="subscription_resubscribe_order tooltip"><span class="tooltiptext">' . esc_attr__( 'Resubscribe Order', 'woocommerce-subscriptions' ) . '</span></div>';
+		} elseif ( wcs_order_contains_subscription( $order_id, 'parent' ) ) {
+			echo '<div class="subscription_parent_order tooltip"><span class="tooltiptext">' . esc_attr__( 'Parent Order', 'woocommerce-subscriptions' ) . '</span></div>';
+		} else {
+			echo '<div class="normal_order">&ndash;</span>';
+		}
+
+		return $subscription_relationship;
 
 	}
 

@@ -6,7 +6,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://kgopalkrishna.com
- * @since      1.0.1
+ * @since      1.1.0
  *
  * @package    Wc_Order_View
  * @subpackage Wc_Order_View/admin/partials/views
