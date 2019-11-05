@@ -124,6 +124,16 @@
     line-height: 1.5em;
 }
 
+.order-view-admin .wp-list-table .column-pdf_invoice {
+    text-align: center;
+    width: 12ch;
+}
+
+.order-view-admin .wp-list-table .column-subscription_relationship {
+    text-align: center;
+    width: 12ch;
+}
+
 .order-view-admin .wp-list-table .column-total {
     width: 8ch;
     text-align: right;
@@ -134,9 +144,15 @@
 }
 
 .order-view-admin .wp-list-table .tooltip {
+    cursor: help;
 	position: relative;
 	display: inline-block;
 	padding: 0px 0px 0px 5px;
+}
+
+
+.order-view-admin .wp-list-table .tooltip .subscription_head.tooltip {
+    width:150px;
 }
 
 .order-view-admin .wp-list-table .tooltip .tooltiptext {
@@ -152,6 +168,12 @@
 	top: -3px;
 	right: 110%;
 	font-size: 10px;
+}
+
+.order-view-admin .wp-list-table .subscription_parent_order .tooltiptext, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order .tooltiptext, 
+.order-view-admin .wp-list-table .subscription_renewal_order .tooltiptext {
+    top: -8px;
 }
 
 .order-view-admin .wp-list-table .tooltip .tooltiptext::after {
@@ -171,6 +193,60 @@
 .order-view-admin .wp-list-table .column-billing_address .description,
 .order-view-admin .wp-list-table .column-shipping_address .description {
     display: block;
+    color: #999;
+}
+
+.order-view-admin .wp-list-table .subscription_head,
+.order-view-admin .wp-list-table .subscription_parent_order, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order, 
+.order-view-admin .wp-list-table .subscription_renewal_order {
+    display: block;
+    text-indent: -9999px;
+    position: relative;
+    height: 1em;
+    width: 1em;
+    margin: 0 auto;
+}
+
+.order-view-admin .wp-list-table .subscription_head span,
+.order-view-admin .wp-list-table .subscription_parent_order span, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order span, 
+.order-view-admin .wp-list-table .subscription_renewal_order span {
+    text-indent: 0;
+}
+
+.order-view-admin .wp-list-table .subscription_head::after,
+.order-view-admin .wp-list-table .subscription_parent_order::after, 
+.order-view-admin .wp-list-table .subscription_resubscribe_order::after, 
+.order-view-admin .wp-list-table .subscription_renewal_order::after {
+    font-weight: 400;
+    margin: 0;
+    text-indent: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 16px;
+    top: 0;
+    font-variant: normal;
+    text-transform: none;
+    left: 0;
+}
+
+.order-view-admin .wp-list-table .subscription_head::after, 
+.order-view-admin .wp-list-table .subscription_parent_order::after {
+    font-family: WooCommerce;
+    content: "\e014";
+}
+
+.order-view-admin .wp-list-table .subscription_renewal_order::after {
+    font-family: WooCommerce;
+    content: "\e031";
+}
+
+.order-view-admin .wp-list-table .subscription_resubscribe_order::after {
+    font-family: WooCommerce;
+    content: "\e014";
     color: #999;
 }
 
@@ -266,6 +342,7 @@
 .order-view-order-details #woocommerce-order-downloads .inside, 
 .order-view-order-details #woocommerce-product-data .inside, 
 .order-view-order-details #woocommerce-product-type-options .inside {
+    display: block;
     margin: 0;
     padding: 0;
 }
@@ -286,8 +363,7 @@
 
 .order-view-order-details #order_data h3, 
 .order-view-order-details #order_data h4 {
-    color: 
-    #333;
+    color: #333;
     margin: 1.33em 0 0;
 }
 
@@ -537,6 +613,10 @@
 	text-decoration: none !important;
 }
 
+.js .order-view-order-details .meta-box-sortables .postbox.closed .toggle-indicator::before{
+    content: "\f140";
+}
+
 .order-view-order-details #poststuff #woocommerce-order-notes .inside ul.order_notes li {
     padding: 0 10px;
 }
@@ -588,3 +668,209 @@
     border-bottom: 1px dotted #999;
 }
 
+
+.order-view-order-details #wc_am_api_keys .inside, 
+.order-view-order-details #wc_am_api_key_activations .inside {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metaboxes {
+    border-bottom: 1px solid #eee;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox.closed {
+    border-radius: 3px;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox:last-of-type {
+    border-bottom: 0;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox {
+    background: #fff;
+    margin: 0 !important;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3.fixed {
+    cursor: pointer !important;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox.closed h3 {
+    border: 0;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3 {
+    margin: 0 !important;
+    padding: .75em .75em .75em 1em !important;
+    font-size: 1em !important;
+    overflow: hidden;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3 .handlediv {
+    background-position: 6px 5px !important;
+    visibility: hidden;
+    height: 26px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox.closed .handlediv::before {
+    content: "\f140" !important;
+}
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox .handlediv::before {
+    content: "\f142" !important;
+    cursor: pointer;
+    display: inline-block;
+    font: 400 20px/1 Dashicons;
+    line-height: .5 !important;
+    padding: 8px 10px;
+    position: relative;
+    right: 12px;
+    top: 0;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3 strong {
+    font-weight: 400;
+    line-height: 26px;
+    font-weight: 700;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox h3:hover .handlediv {
+    visibility: visible;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table {
+    width: 100%;
+    position: relative;
+    background-color: #fdfdfd;
+    padding: 1em;
+    border-top: 1px solid #eee;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td {
+    text-align: left;
+    padding: 0 6px 1em 0;
+    vertical-align: top;
+    border: 0;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td label {
+    text-align: left;
+    display: block;
+    line-height: 21px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input, 
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td textarea {
+    width: 100%;
+    margin: 0;
+    display: block;
+    font-size: 14px;
+    padding: 4px;
+    color: 
+    #555;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input.short {
+    width: 200px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input {
+    float: left;
+    min-width: 200px;
+}
+
+.order-view-order-details .wc-metaboxes-wrapper .wc-metabox table td input.am_checkbox, 
+.order-view-order-details td > input[type="checkbox"], 
+.order-view-order-details .wp-admin p input[type="checkbox"].am_checkbox {
+    border-width: 1px;
+    border-style: solid;
+    clear: none;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 0;
+    height: 16px;
+    margin: 2px 3px 2px 0;
+    outline: 0;
+    padding: 0 !important;
+    text-align: center;
+    vertical-align: middle;
+    width: 16px;
+    min-width: 16px;
+    -webkit-appearance: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.order-view-order-details #activations-table {
+    width: 100%;
+    text-align: left;
+}
+
+.order-view-order-details #activations-table th {
+    padding: 10px;
+    background: #424242;
+    color: #fff;
+}
+
+.order-view-order-details #subscription_renewal_orders .inside {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.order-view-order-details .woocommerce_subscriptions_related_orders {
+    margin: 0;
+    overflow: auto;
+}
+
+.order-view-order-details .woocommerce_subscriptions_related_orders table {
+    width: 100%;
+    background: #fff;
+    border-collapse: collapse;
+}
+
+.order-view-order-details .woocommerce_subscriptions_related_orders table thead th:first-child,
+.order-view-order-details .woocommerce_subscriptions_related_orders table td:first-child {
+    padding-left: 12px;
+}
+.order-view-order-details .woocommerce_subscriptions_related_orders table thead th {
+    background: #f8f8f8;
+    padding: 8px;
+    padding-left: 8px;
+    font-size: 11px;
+    text-align: left;
+    color:#555;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.order-view-order-details .woocommerce_subscriptions_related_orders table tbody th, 
+.order-view-order-details .woocommerce_subscriptions_related_orders table td {
+    padding: 8px;
+    text-align: left;
+    line-height: 26px;
+    vertical-align: top;
+    border-bottom: 1px dotted #ececec;
+}
+
+.order-view-order-details .woocommerce_subscriptions_related_orders table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.order-view-order-details .woocommerce_subscriptions_related_orders table thead th:last-of-type, 
+.order-view-order-details .woocommerce_subscriptions_related_orders table td:last-of-type {
+    text-align: right;
+}
+
+.order-view-order-details #woocommerce-subscription-schedule table {
+    width: 100%;
+}
+
+.order-view-order-details #woocommerce-subscription-schedule table td{
+    padding: 10px 0px;
+}
+
+.order-view-order-details #woocommerce-subscription-schedule table td:last-of-type {
+    text-align: right;   
+}

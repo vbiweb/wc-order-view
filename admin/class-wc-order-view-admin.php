@@ -105,8 +105,8 @@ class Wc_Order_View_Admin {
 		 * class.
 		 */
 
-		wp_register_script('wc_order_view_select2', "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.full.min.js", array('jquery'), '4.0.7', true);
-		wp_enqueue_script('wc_order_view_select2');
+		wp_register_script( 'wc_order_view_select2', "https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.full.min.js", array( 'jquery' ), '4.0.7', true );
+		wp_enqueue_script( 'wc_order_view_select2' );
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wc-order-view-admin.js', array( 'jquery' ), $this->version, false );
 
@@ -169,13 +169,17 @@ class Wc_Order_View_Admin {
 
 		if( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == "view" ) {
 
-			$post = get_post( $_GET[ 'order_id' ] );
+			if( isset( $_GET[ 'order_id' ] ) ) {
 
-			$order = new WC_Order( $_GET[ 'order_id' ] );
+				$post = get_post( $_GET[ 'order_id' ] );
 
-			$user = $order->get_user();
+				$order = new WC_Order( $_GET[ 'order_id' ] );
 
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/wc-order-view-order-details-display.php';
+				$user = $order->get_user();
+
+				require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/wc-order-view-order-details-display.php';
+
+			}
 		
 		} else {
 
