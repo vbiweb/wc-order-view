@@ -208,6 +208,8 @@ class WC_Order_View_ListTable extends WP_List_Table {
 	 * @since  1.0.0
 	 */
 	function get_columns() {
+
+		$active_plugins = get_option( 'active_plugins' );
 		
 		$columns = array(
 			'cb' 				=> __( '<input type="checkbox" />', 'wc-order-view' ),
@@ -215,7 +217,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 			'customer_name'    	=> __( 'Name', 'wc-order-view' )
 		);
 
-		if( get_option( 'wcov_pdf_invoices' ) == "enabled" ) {
+		if( get_option( 'wcov_pdf_invoices' ) == "enabled" && in_array( "woocommerce-pdf-invoice/woocommerce-pdf-invoice.php" , $active_plugins ) ) {
 			$columns[ 'pdf_invoice' ] = __( 'Invoice', 'wc-order-view' );
 		}
 
@@ -224,8 +226,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		$columns[ 'billing_address' ] 	= __( 'Billing', 'wc-order-view' );
 		$columns[ 'shipping_address' ] 	= __( 'Ship To', 'wc-order-view' );
 
-		if( get_option( 'wcov_subscriptions' ) == "enabled" ) {
-
+		if( get_option( 'wcov_subscriptions' ) == "enabled" && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) {
 			$columns[ 'subscription_relationship' ] = '<div class="subscription_head tooltip"><span class="tooltiptext">' . esc_attr__( 'Subscription Relationship', 'wc-order-view' ) . '</span></div>';
 		}
 
@@ -458,7 +459,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 	public function get_bulk_actions() {
 		
 		$actions = array(
-			'bulk-export' => 'Export to CSV'
+			'wcov-export' => 'Export to CSV'
 		);
 
 		return $actions;
@@ -504,7 +505,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		$this->_column_headers = array($columns, $hidden, $sortable);
 
 		/** Process bulk action */
-		//$this->process_bulk_action();
+		$this->process_bulk_action();
 
 		$per_page     = $this->get_items_per_page( 'orders_per_page', 20 );
 		$current_page = $this->get_pagenum();
@@ -523,7 +524,11 @@ class WC_Order_View_ListTable extends WP_List_Table {
 
 	}
 
-
+	/**
+	 * Allows to add filter fields at the top of the table.
+	 *
+	 * @since   1.0.0
+	 */
 	public function extra_tablenav( $which ) {
 
 		global $wpdb;

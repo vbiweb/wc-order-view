@@ -22,7 +22,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if( get_option( 'wcov_subscriptions' ) == 'enabled' ) { ?>
+if( get_option( 'wcov_subscriptions' ) == 'enabled' && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) { ?>
 
 	<div id="subscription_renewal_orders" class="postbox ">
 		<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Related Orders</span><span class="toggle-indicator" aria-hidden="true"></span></button>

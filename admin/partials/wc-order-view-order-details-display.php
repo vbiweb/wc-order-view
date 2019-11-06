@@ -116,6 +116,8 @@ if ( WC()->payment_gateways() ) {
 	$payment_gateways = array();
 }
 
+$active_plugins = get_option( 'active_plugins' );
+
 $payment_method = $order->get_payment_method();
 
 $order_type_object = get_post_type_object( $post->post_type );
