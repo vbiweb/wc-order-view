@@ -627,7 +627,7 @@ class Wc_Order_View_Admin {
 
 			$header = array( 'Order ID', 'Date', 'Order Status', 'First Name', 'Last Name', 'Email', 'Phone', 'Company', 'Billing Address', 'Shipping Address', 'Products', 'Payment Method', 'Total' );
 
-			if( get_option( 'wcov_subscriptions' && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) == "enabled" ) {
+			if( get_option( 'wcov_subscriptions' ) == "enabled" && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) {
 				$header[] = "Subscription Relationship";
 			}
 
