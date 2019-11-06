@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
 
 $is_subscription_screen = wcs_is_subscription( $post->ID );
 
-if( get_option( 'wcov_pdf_invoices' ) == "enabled" && ! $is_subscription_screen ) : ?>
+if( get_option( 'wcov_pdf_invoices' ) == "enabled" && ! $is_subscription_screen && in_array( "woocommerce-pdf-invoice/woocommerce-pdf-invoice.php" , $active_plugins ) ) : ?>
 	<div id="woocommerce-invoice_details" class="postbox ">
 		<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Invoice Details</span><span class="toggle-indicator" aria-hidden="true"></span></button>
 		<h2 class="hndle ui-sortable-handle"><span>Invoice Details</span></h2>

@@ -16,7 +16,7 @@
  * Plugin Name:       Woocommerce Order View
  * Plugin URI:        https://kgopalkrishna.com/wc-order-view/
  * Description:       This plugin gives a strict View-Only access to Woocommerce orders for specified user roles.
- * Version:           1.2.1
+ * Version:           1.3.0
  * Author:            K Gopal Krishna
  * Author URI:        https://kgopalkrishna.com
  * License:           GPL-3.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WC_ORDER_VIEW_VERSION', '1.2.1' );
+define( 'WC_ORDER_VIEW_VERSION', '1.3.0' );
 
 /**
  * The code that runs during plugin activation.

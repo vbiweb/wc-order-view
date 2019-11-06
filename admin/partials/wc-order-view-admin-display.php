@@ -17,6 +17,15 @@
 <div class="wrap order-view-admin">
 	<h2>
 		<span class="main_title" tabindex="1">Orders</span>
+		<?php
+			$get_string = '';
+			foreach ( $_GET as $key => $value ) {
+				if( $value != '' && $key != 'action' && $key != 'action2' ) {
+					$get_string .= '&' . $key . '=' . $value;	
+				}
+			}
+		?>
+		<a href="?action=wcov-export<?php echo $get_string; ?>" class="page-title-action">Export Orders</a>
 	</h2>
 	<form method="get">
 		<input type="hidden" name="page" value="<?php echo $_REQUEST[ 'page' ]; ?>" />

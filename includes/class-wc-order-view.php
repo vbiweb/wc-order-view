@@ -158,6 +158,7 @@ class Wc_Order_View {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'wc_order_view_menus' );
 		$this->loader->add_action( 'admin_init' , $plugin_admin, 'register_wc_order_view_settings' );
+		$this->loader->add_action( 'admin_init' , $plugin_admin, 'bulk_export_to_csv' );
 
 		$this->loader->add_filter( 'set-screen-option', 'Wc_Order_View_Admin' , 'set_screen' , 10, 3 );
 

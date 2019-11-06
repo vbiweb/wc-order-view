@@ -431,4 +431,237 @@ class Wc_Order_View_Admin {
 
 	}
 
+
+	/**
+	 * Method to export all orders in CSV Format
+	 *
+	 * @since    1.3.0
+	 */
+	public function bulk_export_to_csv() {
+
+		if( ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == "wcov-export" ) || ( isset( $_GET[ 'action2' ] ) && $_GET[ 'action2' ] == "wcov-export" ) ) {
+
+			$export_ids = esc_sql( $_GET['bulk-export'] );
+
+			$orders = array();
+
+			$active_plugins = get_option( 'active_plugins' );
+
+			if( empty( $export_ids ) ) {
+
+				$meta_query = array();
+				$meta_query['relation'] = "AND";
+
+				if ( isset ( $_REQUEST[ '_customer_user' ] ) && $_REQUEST[ '_customer_user' ] != "" ) {
+					$meta_query[] = array ( 'key' => '_customer_user', value => $_REQUEST[ '_customer_user' ] );
+				}
+
+				if ( isset ( $_REQUEST[ '_payment_method' ] ) && $_REQUEST[ '_payment_method' ] != "" ) {
+					$meta_query[] = array ( 'key' => '_payment_method', value => $_REQUEST[ '_payment_method' ] );
+				}
+
+				if ( isset ( $_REQUEST[ 's' ] ) && $_REQUEST[ 's' ] != "" ) {
+					$search_meta = array();
+					$search_meta[ 'relation' ] = "OR";
+
+					$search_meta[] = array ( 'key' => '_billing_first_name', value => $_REQUEST[ 's' ], 'compare' => 'LIKE' );
+					$search_meta[] = array ( 'key' => '_billing_last_name', value => $_REQUEST[ 's' ], 'compare' => 'LIKE' );
+					$search_meta[] = array ( 'key' => '_billing_email', value => $_REQUEST[ 's' ], 'compare' => 'LIKE' );
+					$search_meta[] = array ( 'key' => '_billing_company', value => $_REQUEST[ 's' ], 'compare' => 'LIKE' );
+					$search_meta[] = array ( 'key' => '_invoice_number_display', value => $_REQUEST[ 's' ], 'compare' => 'LIKE' );
+
+					$meta_query[] = $search_meta;
+				}		
+
+				$args = array (
+					'numberposts'      => -1,
+					'post_type'        => 'shop_order',
+					'post_status'      => ( isset ( $_REQUEST[ 'post_status' ] ) && $_REQUEST[ 'post_status' ] != "" ) ? $_REQUEST[ 'post_status' ] : array_keys( wc_get_order_statuses() ),
+					'meta_query'       => $meta_query
+				);
+
+				if( isset ( $_REQUEST[ 'author' ] ) && $_REQUEST[ 'author' ] != "" ) {
+					$args[ 'author' ] = $_REQUEST[ 'author' ];
+				}
+
+				if ( isset ( $_REQUEST[ 'm' ] ) && $_REQUEST[ 'm' ] != "" ) {
+					$year  = date( "Y", strtotime ( $_REQUEST[ 'm' ] . "01" ) );
+					$month = date( "m", strtotime ( $_REQUEST[ 'm' ] . "01" ) );
+
+					$date_query = array(
+				        array(
+				            'year'  => $year,
+					        'month' => $month
+						),
+					);
+
+					$args[ 'date_query' ] = $date_query;
+					
+				}
+				
+				$result = get_posts ( $args );
+
+				foreach ( $result as $result_item ) {
+					
+					$order_item = array();
+
+					$order = new WC_Order( $result_item->ID );
+					$order_items = $order->get_items( 'line_item' );
+
+					$billing_address = apply_filters( 'woocommerce_order_formatted_billing_address', $order->get_address( 'billing' ), $order );
+		        	$billing_address = WC()->countries->get_formatted_address( $billing_address, ', ' );
+
+		        	$shipping_address = apply_filters( 'woocommerce_order_formatted_shipping_address', $order->get_address( 'shipping' ), $order );
+		        	$shipping_address = WC()->countries->get_formatted_address( $shipping_address, ', ' );
+
+		        	$products = array();
+
+		        	foreach ( $order_items as $item ) {
+		        		$products[] = $item->get_quantity() . ' x [' . $item->get_name() . ']';
+		        	}
+
+					$order_item[ 'Order ID' ] 		  = $order->get_id();
+					$order_item[ 'Date' ] 			  = date( "d-m-Y", strtotime( $order->get_date_completed() ) );
+					$order_item[ 'Order Status' ]	  = ucfirst( $order->get_status() );
+					$order_item[ 'First Name' ] 	  = $order->get_billing_first_name();
+					$order_item[ 'Last Name' ] 	  	  = $order->get_billing_last_name();
+					$order_item[ 'Email' ] 	  		  = $order->get_billing_email();
+					$order_item[ 'Phone' ] 	  		  = $order->get_billing_phone();
+					$order_item[ 'Company' ] 	  	  = $order->get_billing_company();
+					$order_item[ 'Billing Address' ]  = $billing_address ? $billing_address : "";
+					$order_item[ 'Shipping Address' ] = $shipping_address ? $shipping_address : "";
+					$order_item[ 'Products' ] 		  = implode("; ", $products);
+					$order_item[ 'Payment Method' ]	  = $order->get_payment_method_title();
+					$order_item[ 'Total' ] 			  = $order->get_total();
+
+					if( get_option( 'wcov_subscriptions' ) == "enabled" && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) {
+
+						$subscription_relationship = "";
+
+						if ( wcs_order_contains_subscription( $order->get_id(), 'renewal' ) ) {
+							$subscription_relationship = "Renewal Order";
+						} elseif ( wcs_order_contains_subscription( $order->get_id(), 'resubscribe' ) ) {
+							$subscription_relationship = "Resubscribtion Order";
+						} elseif ( wcs_order_contains_subscription( $order->get_id(), 'parent' ) ) {
+							$subscription_relationship = "Parent Order";
+						}
+
+						$order_item[ 'Subscription Relationship' ] = $subscription_relationship;
+
+					}
+
+					if( get_option( 'wcov_pdf_invoices' ) == "enabled" && in_array( "woocommerce-pdf-invoice/woocommerce-pdf-invoice.php" , $active_plugins ) ) {
+
+						$order_item[ 'Invoice Number' ] = get_post_meta( $order->get_id(), '_invoice_number_display', true );
+
+					}
+					
+					$orders[] = $order_item;
+
+				}
+
+			} else {
+
+				foreach ( $export_ids as $export_id ) {
+					
+					$order_item = array();
+
+					$order = new WC_Order( $export_id );
+					$order_items = $order->get_items( 'line_item' );
+
+					$billing_address = apply_filters( 'woocommerce_order_formatted_billing_address', $order->get_address( 'billing' ), $order );
+		        	$billing_address = WC()->countries->get_formatted_address( $billing_address, ', ' );
+
+		        	$shipping_address = apply_filters( 'woocommerce_order_formatted_shipping_address', $order->get_address( 'shipping' ), $order );
+		        	$shipping_address = WC()->countries->get_formatted_address( $shipping_address, ', ' );
+
+		        	$products = array();
+
+		        	foreach ( $order_items as $item ) {
+		        		$products[] = $item->get_quantity() . ' x [' . $item->get_name() . ']';
+		        	}
+
+					$order_item[ 'Order ID' ] 		  = $order->get_id();
+					$order_item[ 'Date' ] 			  = date( "d-m-Y", strtotime( $order->get_date_completed() ) );
+					$order_item[ 'Order Status' ]	  = ucfirst( $order->get_status() );
+					$order_item[ 'First Name' ] 	  = $order->get_billing_first_name();
+					$order_item[ 'Last Name' ] 	  	  = $order->get_billing_last_name();
+					$order_item[ 'Email' ] 	  		  = $order->get_billing_email();
+					$order_item[ 'Phone' ] 	  		  = $order->get_billing_phone();
+					$order_item[ 'Company' ] 	  	  = $order->get_billing_company();
+					$order_item[ 'Billing Address' ]  = $billing_address ? $billing_address : "";
+					$order_item[ 'Shipping Address' ] = $shipping_address ? $shipping_address : "";
+					$order_item[ 'Products' ] 		  = implode("; ", $products);
+					$order_item[ 'Payment Method' ]	  = $order->get_payment_method_title();
+					$order_item[ 'Total' ] 			  = $order->get_total();
+
+					if( get_option( 'wcov_subscriptions' ) == "enabled" && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) {
+
+						$subscription_relationship = "";
+
+						if ( wcs_order_contains_subscription( $order->get_id(), 'renewal' ) ) {
+							$subscription_relationship = "Renewal Order";
+						} elseif ( wcs_order_contains_subscription( $order->get_id(), 'resubscribe' ) ) {
+							$subscription_relationship = "Resubscribtion Order";
+						} elseif ( wcs_order_contains_subscription( $order->get_id(), 'parent' ) ) {
+							$subscription_relationship = "Parent Order";
+						}
+
+						$order_item[ 'Subscription Relationship' ] = $subscription_relationship;
+
+					}
+
+					if( get_option( 'wcov_pdf_invoices' ) == "enabled" && in_array( "woocommerce-pdf-invoice/woocommerce-pdf-invoice.php" , $active_plugins ) ) {
+
+						$order_item[ 'Invoice Number' ] = get_post_meta( $order->get_id(), '_invoice_number_display', true );
+
+					}
+					
+					$orders[] = $order_item;
+
+				}
+
+			}
+
+			$date = date("d-m-Y");
+
+			$header = array( 'Order ID', 'Date', 'Order Status', 'First Name', 'Last Name', 'Email', 'Phone', 'Company', 'Billing Address', 'Shipping Address', 'Products', 'Payment Method', 'Total' );
+
+			if( get_option( 'wcov_subscriptions' && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) == "enabled" ) {
+				$header[] = "Subscription Relationship";
+			}
+
+			if( get_option( 'wcov_pdf_invoices' ) == "enabled" && in_array( "woocommerce-pdf-invoice/woocommerce-pdf-invoice.php" , $active_plugins ) ) {
+				$header[] = "Invoice Number";
+			}
+
+			header("Content-Type: application/csv");
+			header("Content-Disposition: attachment;Filename=wc-order-view-export-$date.csv");
+
+			$export_file = fopen('php://output', 'w+');
+
+			fputcsv( $export_file, $header );
+
+			foreach ( $orders as $order ) {
+				
+				$record = array();
+
+				foreach ( $header as $field ) {
+					
+					$record[] = $order[ $field ];				
+
+				}
+
+				fputcsv( $export_file, $record );
+
+			}
+
+			fclose($export_file);
+			
+			die();
+
+		}
+
+	}
+
 }

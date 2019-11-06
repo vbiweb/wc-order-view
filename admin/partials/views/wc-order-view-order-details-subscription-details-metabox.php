@@ -22,7 +22,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if( get_option( 'wcov_subscriptions' ) == 'enabled' ) { ?>
+if( get_option( 'wcov_subscriptions' ) == 'enabled' && in_array( "woocommerce-subscriptions/woocommerce-subscriptions.php" , $active_plugins ) ) { ?>
 
 	<div id="woocommerce-subscription-schedule" class="postbox ">
 		<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: Subscription Schedule</span><span class="toggle-indicator" aria-hidden="true"></span></button>
@@ -38,29 +38,32 @@ if( get_option( 'wcov_subscriptions' ) == 'enabled' ) { ?>
 				$the_subscription = array_pop( wcs_get_subscriptions_for_order( $post->ID, array( 'order_type' => array( 'parent', 'renewal' ) ) ) );
 			}
 
-			?>
-			<div class="wc-metaboxes-wrapper">
 
-				<?php do_action( 'wcs_subscription_schedule_after_billing_schedule', $the_subscription ); ?>
-				<table>
-					<tbody>
-						<tr id="billing-schedule">
-							<td><strong><?php esc_html_e( 'Recurring:', 'woocommerce-subscriptions' ); ?></strong></td>
-							<td><?php printf( '%s %s', esc_html( wcs_get_subscription_period_interval_strings( $the_subscription->get_billing_interval() ) ), esc_html( wcs_get_subscription_period_strings( 1, $the_subscription->get_billing_period() ) ) ); ?></td>
-						</tr>
-						<?php foreach ( wcs_get_subscription_date_types() as $date_key => $date_label ) : ?>
-							<?php $internal_date_key = wcs_normalise_date_type_key( $date_key ) ?>
-							<?php if ( false === wcs_display_date_type( $date_key, $the_subscription ) ) : ?>
-								<?php continue; ?>
-							<?php endif;?>
-							<tr id="subscription-<?php echo esc_attr( $date_key ); ?>-date" class="date-fields">
-								<td><strong><?php echo esc_html( $date_label ); ?>:</strong></td>
-								<td><?php echo esc_html( $the_subscription->get_date_to_display( $internal_date_key ) ); ?></td>
+			if( $the_subscription != NULL ) {
+				?>
+				<div class="wc-metaboxes-wrapper">
+					<?php do_action( 'wcs_subscription_schedule_after_billing_schedule', $the_subscription ); ?>
+					<table>
+						<tbody>
+							<tr id="billing-schedule">
+								<td><strong><?php esc_html_e( 'Recurring:', 'woocommerce-subscriptions' ); ?></strong></td>
+								<td><?php printf( '%s %s', esc_html( wcs_get_subscription_period_interval_strings( $the_subscription->get_billing_interval() ) ), esc_html( wcs_get_subscription_period_strings( 1, $the_subscription->get_billing_period() ) ) ); ?></td>
 							</tr>
-						<?php endforeach; ?>
-					</tbody>
-				</table>
-			</div>
+							<?php foreach ( wcs_get_subscription_date_types() as $date_key => $date_label ) : ?>
+								<?php $internal_date_key = wcs_normalise_date_type_key( $date_key ) ?>
+								<?php if ( false === wcs_display_date_type( $date_key, $the_subscription ) ) : ?>
+									<?php continue; ?>
+								<?php endif;?>
+								<tr id="subscription-<?php echo esc_attr( $date_key ); ?>-date" class="date-fields">
+									<td><strong><?php echo esc_html( $date_label ); ?>:</strong></td>
+									<td><?php echo esc_html( $the_subscription->get_date_to_display( $internal_date_key ) ); ?></td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+				<?php 
+			} ?>
 		</div>
 	</div>
 <?php }

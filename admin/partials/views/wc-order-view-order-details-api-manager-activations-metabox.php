@@ -24,7 +24,7 @@ defined( 'ABSPATH' ) || exit;
 
 $is_subscription_screen = wcs_is_subscription( $post->ID );
 
-if( get_option( 'wcov_api_manager' ) == 'enabled' && ! $is_subscription_screen ) { ?>
+if( get_option( 'wcov_api_manager' ) == 'enabled' && ! $is_subscription_screen && in_array( "woocommerce-api-manager/woocommerce-api-manager.php" , $active_plugins ) ) { ?>
 
 	<div id="wc_am_api_key_activations" class="postbox ">
 		<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Toggle panel: API Key Activations</span><span class="toggle-indicator" aria-hidden="true"></span></button>
