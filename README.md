@@ -1,13 +1,13 @@
 === WC Order View ===
 
-Contributors: kggopal12
-Donate link: https://kgopalkrishna.com
-Tags: woocommerce, order, view
-Requires at least: 5.0.0
-Tested up to: 5.2.3
-Stable tag: 1.2.0
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Contributors: kggopal12 <br>
+Donate link: https://kgopalkrishna.com <br>
+Tags: woocommerce, order, view <br>
+Requires at least: 5.0.0 <br>
+Tested up to: 5.2.3 <br>
+Stable tag: 1.2.1 <br>
+License: GPLv3 or later <br>
+License URI: http://www.gnu.org/licenses/gpl-3.0.html <br>
 
 This plugin gives a strict View-Only access to Woocommerce orders for specified user roles.
 
@@ -26,8 +26,8 @@ This plugin gives a strict view only access to woocommerce orders. All you need 
 * Initial release.
 
 = 1.0.1 =
-* Issue #2 - Fixed Date created value displayed for each order
-* Issue #3 - Fixed the total orders count shown in all orders page
+* Fix - Fixed Date created value displayed for each order #2
+* Fix - Fixed the total orders count shown in all orders page #3
 
 = 1.1.0 =
 * Fix - Fixed cancelled orders not visible #5
@@ -37,7 +37,10 @@ This plugin gives a strict view only access to woocommerce orders. All you need 
 = 1.2.0 =
 * Feature - One click update option added in the plugins page
 * Fix - Cancelled order status color doesn't match WooCommerce #8
-* Fix - Invoice date for all orders showing same date in All orders list #9
+* Fix - Invoice date for all orders showing same date in All orders list #7
+
+= 1.2.1 =
+* Fix - Added function call to updated in the main plugin file #10
 
 == Features ==
 
