@@ -113,7 +113,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
         	$shipping_address = WC()->countries->get_formatted_address( $shipping_address, ', ' );
 
 			$order_item[ 'order_id' ] 		  = $order->get_id();
-			$order_item[ 'name' ] 			  = $order->get_billing_first_name() . " " . $order->get_billing_last_name();
+			$order_item[ 'customer_name' ] 	  = $order->get_billing_first_name() . " " . $order->get_billing_last_name();
 			$order_item[ 'date' ] 			  = $result_item->post_date;
 			$order_item[ 'status' ]			  = $result_item->post_status;
 			$order_item[ 'billing_address' ]  = $billing_address ? $billing_address : "–";
@@ -212,7 +212,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		$columns = array(
 			'cb' 				=> __( '<input type="checkbox" />', 'wc-order-view' ),
 			'order_id'			=> __( 'Order', 'wc-order-view' ),
-			'name'    			=> __( 'Name', 'wc-order-view' )
+			'customer_name'    	=> __( 'Name', 'wc-order-view' )
 		);
 
 		if( get_option( 'wcov_pdf_invoices' ) == "enabled" ) {
@@ -226,7 +226,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 
 		if( get_option( 'wcov_subscriptions' ) == "enabled" ) {
 
-			$columns[ 'subscription_relationship' ] = '<div class="subscription_head tooltip">' . esc_attr__( 'Subscription Relationship', 'wc-order-view' ) . '<span class="tooltiptext">' . esc_attr__( 'Subscription Relationship', 'wc-order-view' ) . '</span></div>';
+			$columns[ 'subscription_relationship' ] = '<div class="subscription_head tooltip"><span class="tooltiptext">' . esc_attr__( 'Subscription Relationship', 'wc-order-view' ) . '</span></div>';
 		}
 
 		$columns[ 'total' ] 			= __( 'Total', 'wc-order-view' );
@@ -264,7 +264,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 	 */
 	public function get_hidden_columns() {
 
-		$hidden_columns = array( 'name', 'billing_address', 'shipping_address' );
+		$hidden_columns = array( 'customer_name', 'billing_address', 'shipping_address' );
 
 		return $hidden_columns;
 
@@ -283,7 +283,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		
 		switch ( $column_name ) {
 			case 'order_id' :
-			case 'name' :
+			case 'customer_name' :
 			case 'status' :
 			case 'date' :
 			case 'billing_address' :
@@ -323,7 +323,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		
 		$order_id  = "";
 		$order_id .= '<a href="admin.php?page=wc-order-view&action=view&order_id=' . $item[ 'order_id' ] . '" class="order-preview" data-order-id="' . $item[ 'order_id' ] . '" title="Preview">Preview</a>';
-		$order_id .= '<a href="admin.php?page=wc-order-view&action=view&order_id=' . $item[ 'order_id' ] . '" class="order-view"><strong>#' . $item[ 'order_id' ] .' '. $item[ 'name' ] . '</strong></a>';
+		$order_id .= '<a href="admin.php?page=wc-order-view&action=view&order_id=' . $item[ 'order_id' ] . '" class="order-view"><strong>#' . $item[ 'order_id' ] .' '. $item[ 'customer_name' ] . '</strong></a>';
 
 		return $order_id;
 
@@ -417,7 +417,7 @@ class WC_Order_View_ListTable extends WP_List_Table {
 		$invoice_number_display = get_post_meta( $order_id, '_invoice_number_display', true );
 		$invoice_date = get_post_meta( $order_id, '_invoice_date', true );
 
-		$invoice = '<a href="' . admin_url( 'edit.php?post_type=shop_order&pdfid=' . $order_id ) .'">' . $invoice_number_display . '<br>' . date( 'j F, Y' ) . '</a>';	
+		$invoice = '<a href="' . admin_url( 'edit.php?post_type=shop_order&pdfid=' . $order_id ) .'">' . $invoice_number_display . '<br>' . date( 'j F, Y', strtotime( $invoice_date ) ) . '</a>';	
 
 		return $invoice;
 
@@ -497,7 +497,11 @@ class WC_Order_View_ListTable extends WP_List_Table {
 	 */
 	public function prepare_items() {
 
-		$this->_column_headers = $this->get_column_info();
+		//$this->_column_headers = $this->get_column_info();
+		$columns = $this->get_columns();
+		$hidden = $this->get_hidden_columns();
+		$sortable = $this->get_sortable_columns();
+		$this->_column_headers = array($columns, $hidden, $sortable);
 
 		/** Process bulk action */
 		//$this->process_bulk_action();

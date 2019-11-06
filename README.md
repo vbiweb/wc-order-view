@@ -1,10 +1,11 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
+=== WC Order View ===
+
+Contributors: kggopal12
 Donate link: https://kgopalkrishna.com
 Tags: woocommerce, order, view
 Requires at least: 5.0.0
 Tested up to: 5.2.3
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,20 +13,7 @@ This plugin gives a strict View-Only access to Woocommerce orders for specified 
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
-
-A few notes about the sections above:
-
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+This plugin gives a strict view only access to woocommerce orders. All you need to do is create a new user role 'products_admin' using any role editor plugin available. All users with this role will be able to view orders, the items in the order, total amount paid including taxes and shipping, and the order notes all in read-only mode. This plugin also provides support for select 3rd party Woocommerce premium plugins like Woocommerce Subscriptions, PDF Invoices and Woocommerce API Manager. Planned features include CSV Exporting options and Custom Order actions available only for 'products_admin'
 
 == Installation ==
 
@@ -42,18 +30,24 @@ stable.
 * Issue #3 - Fixed the total orders count shown in all orders page
 
 = 1.1.0 =
-* Issue #5 - Fixed cancelled orders not visible
+* Fix - Fixed cancelled orders not visible #5
 * Feature - Support for 3rd party woocommerce plugins ( PDF Invoices, Woocommerce Subscriptions, Woocommerce API Mananger )
 * Dev - New hooks added to the view order details page ( Details will be shared in a separate documentation )
+
+= 1.2.0 =
+* Feature - One click update option added in the plugins page
+* Fix - Cancelled order status color doesn't match WooCommerce #8
+* Fix - Invoice date for all orders showing same date in All orders list #9
 
 == Features ==
 
 1. Strict view only access to orders.
 1. View each orders individually.
+1. Support for 3rd party woocommerce plugins ( PDF Invoices, Woocommerce Subscriptions, Woocommerce API Mananger )
+1. Automatic update notifications
 
 == Planned Features ==
 
-* hooks and filters for adding custom content in view order page
 * Export orders in CSV format
 * Custom order view actions
 
