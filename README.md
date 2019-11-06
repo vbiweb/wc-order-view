@@ -5,7 +5,7 @@ Donate link: https://kgopalkrishna.com <br>
 Tags: woocommerce, order, view <br>
 Requires at least: 5.0.0 <br>
 Tested up to: 5.2.3 <br>
-Stable tag: 1.3.0 <br>
+Stable tag: 1.3.1 <br>
 License: GPLv3 or later <br>
 License URI: http://www.gnu.org/licenses/gpl-3.0.html <br>
 
@@ -43,7 +43,10 @@ This plugin gives a strict view only access to woocommerce orders. All you need 
 * Fix - Added function call to updated in the main plugin file #10
 
 = 1.3.0 =
-* Feature - Bulk Export to CSV 
+* Feature - Bulk Export to CSV
+
+= 1.3.0 =
+* Fix - Subscription Relationship missing in CSV export #13
 
 == Features ==
 
